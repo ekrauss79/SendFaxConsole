@@ -15,6 +15,9 @@ namespace SendFaxConsole
         public static void Main(string[] args)
         {
             SendFaxAsync2().Wait();
+            //String val = "C:\text.txt";
+
+            //Console.WriteLine(val);
         }
 
         static private async Task SendFaxAsync()
@@ -44,7 +47,7 @@ namespace SendFaxConsole
         {
 
             var interfax = new FaxClient(username: "ekrauss", password: "V2shC2t1!");
-            string myFilePath = Path.GetFullPath(@"C:\Users\ekrau\source\repos\SendFaxConsole\SendFaxConsole\FaxDocs\fax.txt").Replace(@"\\", @"\");
+            String myFilePath = @"C:\Users\ekrau\source\repos\SendFaxConsole\SendFaxConsole\FaxDocs\fax.txt";
 
             try
             {
@@ -83,10 +86,10 @@ namespace SendFaxConsole
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine(ex.InnerException);
             }
 
         }
 
-        }
+    }
 }

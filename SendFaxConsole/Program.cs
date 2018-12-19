@@ -15,39 +15,13 @@ namespace SendFaxConsole
         public static void Main(string[] args)
         {
             SendFaxAsync2().Wait();
-            //String val = "C:\text.txt";
-
-            //Console.WriteLine(val);
-        }
-
-        static private async Task SendFaxAsync()
-        {
-
-            var interfax = new FaxClient(username: "ekrauss", password: "V2shC2t1!");
-
-            try
-            {
-                var options = new SendOptions { FaxNumber = "+18187015973" };
-
-                // with a path
-                //var fileDocument = interfax.Documents.BuildFaxDocument(@".\FaxDocs\fax.txt");
-                //var messageId = await interfax.Outbound.SendFax(faxDocument, options);
-                //returnVal = 1;
-
-            }
-            catch (Exception ex)
-            {
-                //returnVal = 0;
-                Console.WriteLine(ex.Message);
-            }
-
         }
 
         static private async Task SendFaxAsync2()
         {
 
-            var interfax = new FaxClient(username: "ekrauss", password: "V2shC2t1!");
-            String myFilePath = @"C:\Users\ekrau\source\repos\SendFaxConsole\SendFaxConsole\FaxDocs\fax.txt";
+            var interfax = new FaxClient(username: "erickrauss", password: "V2shC2t1!");
+            String myFilePath = @"C:\Users\ekrau\source\repos\SendFaxConsole\SendFaxConsole\FaxDocs\testfax.pdf";
 
             try
             {
@@ -55,7 +29,7 @@ namespace SendFaxConsole
                   interfax.Documents.BuildFaxDocument(myFilePath),
                   new SendOptions
                   {
-                      FaxNumber = "+18187015973"
+                      FaxNumber = "+18187010249"
                   }
                 );
 

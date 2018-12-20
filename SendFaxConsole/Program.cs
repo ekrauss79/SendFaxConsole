@@ -25,6 +25,7 @@ namespace SendFaxConsole
         static private async Task SendFaxAsync2()
         {
             String myFilePath = "";
+            int myFaxRequestID = 0;
             var interfax = new FaxClient(username: "erickrauss", password: "V2shC2t1!");
 
             try
@@ -34,6 +35,7 @@ namespace SendFaxConsole
                 List<FaxRequestQueryModel> myModel = new List<FaxRequestQueryModel>();
                 myModel = DataProvider.Instance.GetFaxRequest();
 
+                //loop through the resultset
                 foreach (var faxRequest in myModel)
                 {
 
@@ -46,6 +48,17 @@ namespace SendFaxConsole
                                     FaxNumber = faxRequest.Client_Fax_Number
                                 }
                     );
+
+                    /***************************************
+                     *  12/19/2018 Nightly notes
+                     * When you get back you need to add the logic that will update the 
+                     * fax request table with the date sent and the status of the attempt.
+                     * Once we do this we will be able to reprocess the faxes that dont send.
+                     * 
+                     * 
+                     * *************************************/
+
+                    myFaxRequestID = faxRequest.FaxRequestID;
 
                     // wait for the fax to be
                     // delivered successfully

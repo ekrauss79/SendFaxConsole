@@ -361,6 +361,7 @@ namespace SendFaxConsole.Data
                        on faxRequester.ClientID equals faxRecipients.ClientID
                     select new FaxRequestQueryModel
                     {
+                        FaxRequestID = faxRequester.FaxRequestID,
                         Client_Name = faxRecipients.Client_Contact_Name,
                         Client_Fax_Number = faxRecipients.Client_Fax_Number,
                         Fax_File_Location = faxRequester.Fax_File_Location

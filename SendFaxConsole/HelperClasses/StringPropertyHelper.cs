@@ -1,32 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Configuration;
 using System.Globalization;
 
-namespace Legacy.WebApp.HelperClasses
+namespace SendFaxConsole.HelperClasses
 {
 
     public class StringPropertyHelper
     {
-        internal static string GetPropertyValue(String keyValue)
-        {
-
-            String outputMessage = "";
-
-            try
-            {
-                outputMessage = System.Configuration.ConfigurationManager.AppSettings[keyValue];    
-            }
-            catch
-            {
-                outputMessage = "Could not retrieve message";
-            }
-
-            return outputMessage;
-        }
 
         public static String GetFormattedDecimal(Decimal myInputValue)
         {
@@ -127,22 +108,6 @@ namespace Legacy.WebApp.HelperClasses
             }
 
             return outString;
-        }
-
-        public static string GetAvatarURL(string inValue)
-        {
-            string outValue = "";
-
-            if (String.IsNullOrEmpty(inValue))
-            {
-                outValue = ConfigurationManager.AppSettings["DefaultAvitarImage"];
-            }
-            else
-            {
-                outValue = inValue;
-            }
-
-            return outValue;
         }
 
         public static string GenerateRandomString(int length, String allowedChars)

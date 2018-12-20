@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SendFaxConsole.ViewModels.FaxRequest
+namespace SendFaxConsole.Data.ViewModels.FaxRecipient
 {
-    class FaxRequestViewModel
+    class FaxRecipientViewModel
     {
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SendFaxConsole.DataProvider.Models
+namespace SendFaxConsole.Data.Models
 {
     public class FaxRequestMasterModel
     {

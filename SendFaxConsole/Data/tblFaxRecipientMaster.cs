@@ -7,17 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SendFaxConsole.DataProvider
+namespace SendFaxConsole.Data
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class tblFaxRequestMaster
+    public partial class tblFaxRecipientMaster
     {
-        public int FaxRequestID { get; set; }
         public int ClientID { get; set; }
-        public string Fax_File_Location { get; set; }
-        public System.DateTime Date_Requested { get; set; }
-        public Nullable<System.DateTime> Date_Last_Sent { get; set; }
+        public string Client_Name { get; set; }
+        public string Client_Contact_Name { get; set; }
+        public string Client_Fax_Number { get; set; }
+        public string Client_Phone_Number { get; set; }
+        public System.DateTime Audit_Date { get; set; }
+        public System.DateTime Audit_Time { get; set; }
+        public string Audit_User { get; set; }
     }
 }

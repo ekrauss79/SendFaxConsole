@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SendFaxConsole.Data.Models;
 
-namespace SendFaxConsole.DataProvider
+namespace SendFaxConsole.Data
 {
 
     public class DataProvider : object
@@ -351,6 +352,20 @@ namespace SendFaxConsole.DataProvider
         #region [ GET Method Definitions ]
 
         #region [ DAO Abstraction Method - Modified: Need Testing ]
+        
+        public List<FaxRequestQueryModel> GetFaxRequest()
+        {
+
+            return (from faxRequester in DataContext.tblFaxRequestMasters
+                    join faxRecipients in DataContext.tblFaxRecipientMasters
+                       on faxRequester.ClientID equals faxRecipients.ClientID
+                    select new FaxRequestQueryModel
+                    {
+                        Client_Name = faxRecipients.Client_Contact_Name,
+                        Client_Fax_Number = faxRecipients.Client_Fax_Number,
+                        Fax_File_Location = faxRequester.Fax_File_Location
+                    }).ToList();
+        }
 
         /*
         public FundraisingModel GetFundraisingCampaign(int userID, int fundraisingID)

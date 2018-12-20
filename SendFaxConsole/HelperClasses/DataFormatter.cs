@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Legacy.WebApp.HelperClasses
+namespace SendFaxConsole.HelperClasses
 {
     public class DataFormatter
     {

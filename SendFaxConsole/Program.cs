@@ -7,7 +7,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using InterFAX.Api;
-using SendFaxConsole.DataProvider;
+using SendFaxConsole.Data;
+using SendFaxConsole.HelperClasses;
+using SendFaxConsole.Data.Models;
+
+//using SendFaxConsole.
 
 namespace SendFaxConsole
 {
@@ -20,44 +24,52 @@ namespace SendFaxConsole
 
         static private async Task SendFaxAsync2()
         {
-
-            
-
+            String myFilePath = "";
             var interfax = new FaxClient(username: "erickrauss", password: "V2shC2t1!");
-            String myFilePath = @"C:\Users\ekrau\source\repos\SendFaxConsole\SendFaxConsole\FaxDocs\testfax.pdf";
 
             try
             {
-                var faxId = await interfax.Outbound.SendFax(
-                  interfax.Documents.BuildFaxDocument(myFilePath),
-                  new SendOptions
-                  {
-                      FaxNumber = "+18187010249"
-                  }
-                );
 
-                // wait for the fax to be
-                // delivered successfully
-                while (true)
+                //get the data
+                List<FaxRequestQueryModel> myModel = new List<FaxRequestQueryModel>();
+                myModel = DataProvider.Instance.GetFaxRequest();
+
+                foreach (var faxRequest in myModel)
                 {
-                    // load the fax's status
-                    var fax = await interfax.Outbound.GetFaxRecord(faxId);
-                    // sleep if pending
-                    if (fax.Status < 0)
-                    {
-                        Thread.Sleep(10000);
-                    }
-                    else if (fax.Status == 0)
-                    {
-                        Debug.WriteLine("Sent!");
-                        break;
-                    }
-                    else
-                    {
-                        Debug.WriteLine($"Error: {fax.Status}");
-                        break;
-                    }
 
+                    //myFilePath = @"C:\Users\ekrau\source\repos\SendFaxConsole\SendFaxConsole\FaxDocs\testfax.pdf";
+                    myFilePath = faxRequest.Fax_File_Location;
+                    var faxId = await interfax.Outbound.SendFax(
+                                interfax.Documents.BuildFaxDocument(myFilePath),
+                                new SendOptions
+                                {
+                                    FaxNumber = faxRequest.Client_Fax_Number
+                                }
+                    );
+
+                    // wait for the fax to be
+                    // delivered successfully
+                    while (true)
+                    {
+                        // load the fax's status
+                        var fax = await interfax.Outbound.GetFaxRecord(faxId);
+                        // sleep if pending
+                        if (fax.Status < 0)
+                        {
+                            Thread.Sleep(10000);
+                        }
+                        else if (fax.Status == 0)
+                        {
+                            Debug.WriteLine("Sent!");
+                            break;
+                        }
+                        else
+                        {
+                            Debug.WriteLine($"Error: {fax.Status}");
+                            break;
+                        }
+
+                    }
                 }
 
             }

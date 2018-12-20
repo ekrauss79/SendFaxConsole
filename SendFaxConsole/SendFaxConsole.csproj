@@ -58,44 +58,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataProvider\DataSetProvider.cs" />
-    <Compile Include="DataProvider\Models\FaxRecipientMasterModel.cs" />
-    <Compile Include="DataProvider\Models\FaxRequestMasterModel.cs" />
-    <Compile Include="DataProvider\modPPPC_AutomatedFax.Context.cs">
+    <Compile Include="Data\DataProvider.cs" />
+    <Compile Include="Data\Models\FaxRecipientMasterModel.cs" />
+    <Compile Include="Data\Models\FaxRequestMasterModel.cs" />
+    <Compile Include="Data\Models\FaxRequestQueryModel.cs" />
+    <Compile Include="Data\modPPPC_AutomatedFax.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>modPPPC_AutomatedFax.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataProvider\modPPPC_AutomatedFax.cs">
+    <Compile Include="Data\modPPPC_AutomatedFax.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>modPPPC_AutomatedFax.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataProvider\modPPPC_AutomatedFax.Designer.cs">
+    <Compile Include="Data\modPPPC_AutomatedFax.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>modPPPC_AutomatedFax.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DataProvider\tblFaxRecipientMaster.cs">
+    <Compile Include="Data\tblFaxRecipientMaster.cs">
       <DependentUpon>modPPPC_AutomatedFax.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataProvider\tblFaxRequestMaster.cs">
+    <Compile Include="Data\tblFaxRequestMaster.cs">
       <DependentUpon>modPPPC_AutomatedFax.tt</DependentUpon>
     </Compile>
     <Compile Include="HelperClasses\DataFormatter.cs" />
     <Compile Include="HelperClasses\StringPropertyHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DataProvider\ViewModels\FaxRecipient\FaxRecipientViewModel.cs" />
-    <Compile Include="DataProvider\ViewModels\FaxRequest\FaxRequestViewModel.cs" />
+    <Compile Include="Data\ViewModels\FaxRecipient\FaxRecipientViewModel.cs" />
+    <Compile Include="Data\ViewModels\FaxRequest\FaxRequestViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="DataProvider\modPPPC_AutomatedFax.edmx">
+    <EntityDeploy Include="Data\modPPPC_AutomatedFax.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>modPPPC_AutomatedFax.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="DataProvider\modPPPC_AutomatedFax.edmx.diagram">
+    <None Include="Data\modPPPC_AutomatedFax.edmx.diagram">
       <DependentUpon>modPPPC_AutomatedFax.edmx</DependentUpon>
     </None>
     <None Include="FaxDocs\testfax.pdf" />
@@ -105,12 +106,12 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataProvider\modPPPC_AutomatedFax.Context.tt">
+    <Content Include="Data\modPPPC_AutomatedFax.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>modPPPC_AutomatedFax.edmx</DependentUpon>
       <LastGenOutput>modPPPC_AutomatedFax.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DataProvider\modPPPC_AutomatedFax.tt">
+    <Content Include="Data\modPPPC_AutomatedFax.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>modPPPC_AutomatedFax.edmx</DependentUpon>
       <LastGenOutput>modPPPC_AutomatedFax.cs</LastGenOutput>

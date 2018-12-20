@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SendFaxConsole.DataProvider
+namespace SendFaxConsole.Data
 {
     using System;
     using System.Data.Entity;

@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="InterFAX.Api, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\InterFAX.Api.3.1.0\lib\netstandard2.0\InterFAX.Api.dll</HintPath>
     </Reference>
@@ -40,7 +46,10 @@
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,13 +58,63 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataProvider\DataSetProvider.cs" />
+    <Compile Include="DataProvider\Models\FaxRecipientMasterModel.cs" />
+    <Compile Include="DataProvider\Models\FaxRequestMasterModel.cs" />
+    <Compile Include="DataProvider\modPPPC_AutomatedFax.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>modPPPC_AutomatedFax.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataProvider\modPPPC_AutomatedFax.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>modPPPC_AutomatedFax.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataProvider\modPPPC_AutomatedFax.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>modPPPC_AutomatedFax.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataProvider\tblFaxRecipientMaster.cs">
+      <DependentUpon>modPPPC_AutomatedFax.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataProvider\tblFaxRequestMaster.cs">
+      <DependentUpon>modPPPC_AutomatedFax.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HelperClasses\DataFormatter.cs" />
+    <Compile Include="HelperClasses\StringPropertyHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataProvider\ViewModels\FaxRecipient\FaxRecipientViewModel.cs" />
+    <Compile Include="DataProvider\ViewModels\FaxRequest\FaxRequestViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="DataProvider\modPPPC_AutomatedFax.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>modPPPC_AutomatedFax.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataProvider\modPPPC_AutomatedFax.edmx.diagram">
+      <DependentUpon>modPPPC_AutomatedFax.edmx</DependentUpon>
+    </None>
     <None Include="FaxDocs\testfax.pdf" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataProvider\modPPPC_AutomatedFax.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>modPPPC_AutomatedFax.edmx</DependentUpon>
+      <LastGenOutput>modPPPC_AutomatedFax.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataProvider\modPPPC_AutomatedFax.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>modPPPC_AutomatedFax.edmx</DependentUpon>
+      <LastGenOutput>modPPPC_AutomatedFax.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

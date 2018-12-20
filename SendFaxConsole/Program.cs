@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using InterFAX.Api;
+using SendFaxConsole.DataProvider;
 
 namespace SendFaxConsole
 {
@@ -19,6 +20,8 @@ namespace SendFaxConsole
 
         static private async Task SendFaxAsync2()
         {
+
+            
 
             var interfax = new FaxClient(username: "erickrauss", password: "V2shC2t1!");
             String myFilePath = @"C:\Users\ekrau\source\repos\SendFaxConsole\SendFaxConsole\FaxDocs\testfax.pdf";

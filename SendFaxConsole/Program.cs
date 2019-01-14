@@ -45,7 +45,8 @@ namespace SendFaxConsole
                                 interfax.Documents.BuildFaxDocument(myFilePath),
                                 new SendOptions
                                 {
-                                    FaxNumber = faxRequest.Client_Fax_Number
+                                    FaxNumber = faxRequest.Client_Fax_Number,
+                                    ShouldScale = true
                                 }
                     );
 

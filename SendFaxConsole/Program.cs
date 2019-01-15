@@ -10,6 +10,7 @@ using InterFAX.Api;
 using SendFaxConsole.Data;
 using SendFaxConsole.HelperClasses;
 using SendFaxConsole.Data.Models;
+using InterFAX.Api.Dtos;
 
 //using SendFaxConsole.
 
@@ -24,8 +25,7 @@ namespace SendFaxConsole
 
         static private async Task SendFaxAsync2()
         {
-            String myFilePath = "";
-            int myFaxRequestID = 0;
+
             var interfax = new FaxClient(username: "erickrauss", password: "V2shC2t1!");
 
             try
@@ -39,14 +39,14 @@ namespace SendFaxConsole
                 foreach (var faxRequest in myModel)
                 {
 
-                    //myFilePath = @"C:\Users\ekrau\source\repos\SendFaxConsole\SendFaxConsole\FaxDocs\testfax.pdf";
-                    myFilePath = faxRequest.Fax_File_Location;
-                    var faxId = await interfax.Outbound.SendFax(
-                                interfax.Documents.BuildFaxDocument(myFilePath),
+                     var faxId = await interfax.Outbound.SendFax(
+                                interfax.Documents.BuildFaxDocument(faxRequest.Fax_File_Location),
                                 new SendOptions
                                 {
                                     FaxNumber = faxRequest.Client_Fax_Number,
-                                    ShouldScale = true
+                                    ShouldScale = true,
+                                    PageOrientation = PageOrientation.Landscape, 
+                                    PageSize = PageSize.Letter
                                 }
                     );
 
@@ -58,9 +58,6 @@ namespace SendFaxConsole
                      * 
                      * 
                      * *************************************/
-
-                    myFaxRequestID = faxRequest.FaxRequestID;
-
                     // wait for the fax to be
                     // delivered successfully
                     while (true)

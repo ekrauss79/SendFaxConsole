@@ -27,5 +27,6 @@ namespace SendFaxConsole.Data
     
         public virtual DbSet<tblFaxRecipientMaster> tblFaxRecipientMasters { get; set; }
         public virtual DbSet<tblFaxRequestMaster> tblFaxRequestMasters { get; set; }
+        public virtual DbSet<tblFaxRequestMaster_AUDIT> tblFaxRequestMaster_AUDIT { get; set; }
     }
 }

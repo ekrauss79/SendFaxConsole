@@ -83,6 +83,9 @@
     <Compile Include="Data\tblFaxRequestMaster.cs">
       <DependentUpon>modPPPC_AutomatedFax.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\tblFaxRequestMaster_AUDIT.cs">
+      <DependentUpon>modPPPC_AutomatedFax.tt</DependentUpon>
+    </Compile>
     <Compile Include="HelperClasses\DataFormatter.cs" />
     <Compile Include="HelperClasses\StringPropertyHelper.cs" />
     <Compile Include="Program.cs" />

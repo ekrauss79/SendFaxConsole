@@ -85,6 +85,15 @@ namespace SendFaxConsole.Data
 
         #region [ INSERT ]
 
+
+        public Boolean InsertFaxRequestAuditRecord(FaxRequestQueryModel model)
+        {
+            Boolean returnVal = false;
+
+
+
+            return returnVal;
+        }
         /*
         public int? LoadQuickRegistrationUserInfo(QuickRegistrationModel model, Guid coreUserID)
         {

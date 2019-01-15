@@ -7,6 +7,7 @@
       <Diagram DiagramId="babbc50a07404c47ada6540865bae177" Name="Diagram1">
         <EntityTypeShape EntityType="PPPC_AutomatedFaxModel.tblFaxRecipientMaster" Width="2.625" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PPPC_AutomatedFaxModel.tblFaxRequestMaster" Width="2.75" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PPPC_AutomatedFaxModel.tblFaxRequestMaster_AUDIT" Width="2.75" PointX="0.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

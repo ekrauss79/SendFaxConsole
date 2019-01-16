@@ -90,7 +90,25 @@ namespace SendFaxConsole.Data
         {
             Boolean returnVal = false;
 
+            tblFaxRequestMaster_AUDIT myFaxRequestMaster_AUDIT = new tblFaxRequestMaster_AUDIT();
 
+            myFaxRequestMaster_AUDIT.FaxRequestID = model.FaxRequestID;
+            myFaxRequestMaster_AUDIT.ClientID = model.ClientID;
+            myFaxRequestMaster_AUDIT.Fax_File_Location = model.Fax_File_Location;
+            myFaxRequestMaster_AUDIT.Date_Requested = DateTime.Today;
+            myFaxRequestMaster_AUDIT.Fax_Status = model.Fax_Status;
+
+            try
+            {
+
+                DataContext.tblFaxRequestMaster_AUDIT.Add(myFaxRequestMaster_AUDIT);
+                DataContext.SaveChanges();
+                returnVal = true;
+            }
+            catch (Exception ex)
+            {
+
+            }
 
             return returnVal;
         }
@@ -370,6 +388,7 @@ namespace SendFaxConsole.Data
                        on faxRequester.ClientID equals faxRecipients.ClientID
                     select new FaxRequestQueryModel
                     {
+                        ClientID = faxRequester.ClientID,
                         FaxRequestID = faxRequester.FaxRequestID,
                         Client_Name = faxRecipients.Client_Contact_Name,
                         Client_Fax_Number = faxRecipients.Client_Fax_Number,

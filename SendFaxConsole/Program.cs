@@ -35,7 +35,7 @@ namespace SendFaxConsole
                 List<FaxRequestQueryModel> myModel = new List<FaxRequestQueryModel>();
                 myModel = DataProvider.Instance.GetFaxRequest();
 
-                //loop through the resultset
+                //loop through the the entire resultset
                 foreach (var faxRequest in myModel)
                 {
 

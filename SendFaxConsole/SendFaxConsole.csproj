@@ -78,14 +78,30 @@
       <DependentUpon>modPPPC_AutomatedFax.edmx</DependentUpon>
     </Compile>
     <Compile Include="Data\tblFaxRecipientMaster.cs">
-      <DependentUpon>modPPPC_AutomatedFax.tt</DependentUpon>
+      <DependentUpon>TestDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\tblFaxRequestMaster.cs">
-      <DependentUpon>modPPPC_AutomatedFax.tt</DependentUpon>
+      <DependentUpon>TestDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\tblFaxRequestMaster_AUDIT.cs">
-      <DependentUpon>modPPPC_AutomatedFax.tt</DependentUpon>
+      <DependentUpon>TestDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\TestDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\TestDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\TestDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="HelperClasses\ConsoleOutputHelper.cs" />
     <Compile Include="HelperClasses\DataFormatter.cs" />
     <Compile Include="HelperClasses\StringPropertyHelper.cs" />
     <Compile Include="Program.cs" />
@@ -101,6 +117,13 @@
     </EntityDeploy>
     <None Include="Data\modPPPC_AutomatedFax.edmx.diagram">
       <DependentUpon>modPPPC_AutomatedFax.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="Data\TestDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TestDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Data\TestDataModel.edmx.diagram">
+      <DependentUpon>TestDataModel.edmx</DependentUpon>
     </None>
     <None Include="FaxDocs\testfax.pdf" />
     <None Include="packages.config" />
@@ -118,6 +141,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>modPPPC_AutomatedFax.edmx</DependentUpon>
       <LastGenOutput>modPPPC_AutomatedFax.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\TestDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TestDataModel.edmx</DependentUpon>
+      <LastGenOutput>TestDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\TestDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TestDataModel.edmx</DependentUpon>
+      <LastGenOutput>TestDataModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup />

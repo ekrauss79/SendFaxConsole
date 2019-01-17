@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SendFaxConsole.Data.Models;
+using SendFaxConsole.HelperClasses;
 
 namespace SendFaxConsole.Data
 {
@@ -13,7 +14,7 @@ namespace SendFaxConsole.Data
 
         protected DataProvider()
         {
-            _dataContext = new PPPC_AutomatedFaxEntities1();
+            _dataContext = new PPPC_AutomatedFaxEntities2();
         }
 
         #endregion
@@ -58,13 +59,13 @@ namespace SendFaxConsole.Data
         /// named DataContext.	
         ///  
         /// </summary>
-        private PPPC_AutomatedFaxEntities1 _dataContext = null;
+        private PPPC_AutomatedFaxEntities2 _dataContext = null;
 
         /// <summary>
         /// Gets the value for the get only property named DataContext.	
         ///  
         /// </summary>
-        public PPPC_AutomatedFaxEntities1 DataContext
+        public PPPC_AutomatedFaxEntities2 DataContext
         {
             get
             {
@@ -86,9 +87,9 @@ namespace SendFaxConsole.Data
         #region [ INSERT ]
 
 
-        public Boolean InsertFaxRequestAuditRecord(FaxRequestQueryModel model)
+        public string InsertFaxRequestAuditRecord(FaxRequestQueryModel model)
         {
-            Boolean returnVal = false;
+            string returnVal = "failure";
 
             tblFaxRequestMaster_AUDIT myFaxRequestMaster_AUDIT = new tblFaxRequestMaster_AUDIT();
 
@@ -103,11 +104,11 @@ namespace SendFaxConsole.Data
 
                 DataContext.tblFaxRequestMaster_AUDIT.Add(myFaxRequestMaster_AUDIT);
                 DataContext.SaveChanges();
-                returnVal = true;
+                returnVal = "success";
             }
             catch (Exception ex)
             {
-
+                returnVal = ex.InnerException.ToString();
             }
 
             return returnVal;
@@ -332,48 +333,30 @@ namespace SendFaxConsole.Data
         #endregion
 
         #region [ DELETE ]
+        
 
-        /*
-        //no fix needed
-        public Boolean DeleteMessageDelegate(int messageID, int contactID)
+        public string DeleteFaxRequest(FaxRequestMasterModel model)
         {
-
-            Boolean returnValue = true;
+            string returnVal = "failure";
 
             try
             {
-                //MessageDelegate model = new MessageDelegate();
 
-                //model = DataContext.CreateObjectSet<MessageDelegate>().Where(i => i.ContactID == contactID).Where(i => i.MessageID == messageID).FirstOrDefault();
-
-                //if (model != null)
-                //{
-                //    DataContext.DeleteObject(model);
-                //    DataContext.SaveChanges();
-                //}
-                //else
-                //{
-                //    returnValue = false;
-                //}
-
-                string mySQL = "";
-
-                mySQL = "DELETE FROM dbo.MessageDelegate WHERE MessageID = " + messageID + " AND ContactID = " + contactID;
-                DataContext.ExecuteStoreCommand(mySQL);
+                DataContext.lsp_DeleteFaxRequest(model.FaxRequestID);
                 DataContext.SaveChanges();
+                returnVal = "success";
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                returnValue = false;
-                throw e;
+                Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(ex.InnerException.ToString()));
             }
 
-            return returnValue;
-        }
-        */
 
- 
+            return returnVal;
+
+        }
+         
         #endregion
 
         #region [ GET Method Definitions ]

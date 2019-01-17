@@ -113,146 +113,7 @@ namespace SendFaxConsole.Data
 
             return returnVal;
         }
-        /*
-        public int? LoadQuickRegistrationUserInfo(QuickRegistrationModel model, Guid coreUserID)
-        {
-
-            try
-            {
-                ContactModel contactSearchModel;
-                int? contactID = 0;
-
-                contactSearchModel = FetchUserSearch(model.PrimaryEmailAddress);
-
-                if (contactSearchModel == null)
-                {
-
-                    Contact contactModel = new Contact();
-
-                    contactModel.FirstName = model.FirstName;
-                    contactModel.LastName = model.LastName;
-                    contactModel.PrimaryEmailAddress = model.PrimaryEmailAddress;
-                    contactModel.DateCreated = DateTime.Now;
-                    contactModel.IsDiscoverable = "Y";
-
-                    DataContext.Contacts.AddObject(contactModel);
-                    DataContext.SaveChanges();
-
-                    contactID = FetchContactID(model.PrimaryEmailAddress);
-
-                    //load user
-                    User userModel = new User();
-
-                    userModel.CoreUserID = coreUserID;
-                    userModel.ContactID = contactID.Value;
-
-                    DataContext.Users.AddObject(userModel);
-                    DataContext.SaveChanges();
-
-                    //if the new registrant was invited, add them as contacts of the inviter and the inviter to the new registered user
-                    if (model.regkeytoken.HasValue)
-                    {
-                        ProfileModel profileModel = new ProfileModel();
-
-                        profileModel = GetProfileContactInfo(model.regkeytoken);
-
-                        if (profileModel != null)
-                        {
-                            RecordLoadedResult result = new RecordLoadedResult();
-                            result = AddContactUser(contactID.Value, model.regkeytoken.Value);
-                        }
-
-                    }
-
-
-                }
-
-                return contactID.Value;
-            }
-            catch (Exception e)
-            {
-                return 0;
-            }
-        }
-
-
-
  
-        //fixed
-        public RecordLoadedResult LoadNewContact(DefineContactModel model, int userID)
-        {
-
-            RecordLoadedResult result = new RecordLoadedResult();
-
-            int? contactID;
-            //int? recipientID;
-
-            try
-            {
-
-                ContactModel contactSearchModel;
-
-                contactSearchModel = FetchUserSearch(model.EmailAddress);
-
-                if (contactSearchModel == null)
-                {
-                    Contact contactModel = new Contact();
-
-                    contactModel.FirstName = model.FirstName;
-                    contactModel.MiddleName = model.MiddleName;
-                    contactModel.LastName = model.LastName;
-                    if (!String.IsNullOrEmpty(model.Birthdate))
-                    {
-                        contactModel.DateOfBirth = DateTime.Parse(model.Birthdate);
-                    }
-                    contactModel.Address = model.Address;
-                    contactModel.City = model.City;
-                    contactModel.State = model.State;
-                    contactModel.PostalCode = model.ZipCode;
-                    contactModel.MobilePhone = model.MobilePhone;
-                    contactModel.HomePhone = model.HomePhone;
-                    contactModel.PrimaryEmailAddress = model.EmailAddress;
-                    contactModel.SecondaryEmailAddress = model.SecondaryEmailAddress;
-                    contactModel.DateCreated = DateTime.Now;
-                    contactModel.IsDiscoverable = "Y";
-
-                    DataContext.Contacts.AddObject(contactModel);
-                    DataContext.SaveChanges();
-
-                }
-
-                contactID = FetchContactID(model.EmailAddress);
-
-                ContactUser myContact = new ContactUser();
-
-                myContact.ContactID = contactID.Value;
-                myContact.RelationTypeID = model.RelationTypeID;
-                //myContact.Status = (int)RelationshipStatuses.Pending;
-                myContact.Status = (int)RelationshipStatuses.Confirmed;
-                myContact.UserID = userID;
-                myContact.DateCreated = DateTime.Now;
-
-                DataContext.ContactUsers.AddObject(myContact);
-                DataContext.SaveChanges();
-
-                result.RecordID = contactID.Value;
-                result.ContactID = contactID.Value;
-                result.SaveSuccess = true;
-
-            }
-            catch (Exception e)
-            {
-                result.RecordID = 0;
-                result.ContactID = 0;
-                result.SaveSuccess = false;
-                throw e;
-            }
-
-            return result;
-        }
-
-        */
-
         #endregion
 
         #region [ UPDATE ]
@@ -335,7 +196,7 @@ namespace SendFaxConsole.Data
         #region [ DELETE ]
         
 
-        public string DeleteFaxRequest(FaxRequestMasterModel model)
+        public string DeleteFaxRequest(FaxRequestQueryModel model)
         {
             string returnVal = "failure";
 
@@ -349,7 +210,7 @@ namespace SendFaxConsole.Data
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(ex.InnerException.ToString()));
+                returnVal = ex.InnerException.ToString();
             }
 
 

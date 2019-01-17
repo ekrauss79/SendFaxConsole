@@ -50,7 +50,11 @@ namespace SendFaxConsole
 
             int totalCount = 0;
             int currentRecordNumber = 1;
+
+            //Create the fax client with the user information
             var interfax = new FaxClient(username: "erickrauss", password: "V2shC2t1!");
+
+            //log the event
             myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("////-------------FAX PROCESS INITIATED------------\\\\"));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Initiating new Fax Client for user: erickrauss"));
             myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Initiating new Fax Client for user: erickrauss"));
@@ -58,6 +62,7 @@ namespace SendFaxConsole
             try
             {
 
+                //log the event
                 Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Requesting dataset for Fax Requests"));
                 myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Requesting dataset for Fax Requests"));
 
@@ -67,16 +72,20 @@ namespace SendFaxConsole
 
                 //get the total count for use in the loop
                 totalCount = myModel.Count();
+
+                //log the event
                 Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Dataset retrieved.  There are " + totalCount + " record(s)."));
                 myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Dataset retrieved.  There are " + totalCount + " record(s)."));
 
-            //loop through the the entire resultset
+                //loop through the the entire resultset
                 foreach (var faxRequest in myModel)
                 {
 
+                    //log the event
                     Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing Fax records " + currentRecordNumber + " of " + totalCount));
                     myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing Fax records " + currentRecordNumber + " of " + totalCount));
 
+                    //Send the fax with options
                     var faxId = await interfax.Outbound.SendFax(
                                 interfax.Documents.BuildFaxDocument(faxRequest.Fax_File_Location),
                                 new SendOptions
@@ -142,7 +151,6 @@ namespace SendFaxConsole
                             //log the stage
                             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " Failed"));
                             myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " Failed"));
-
 
                             //update the record in the model to success
                             faxRequest.Fax_Status = "failure";

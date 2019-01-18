@@ -112,7 +112,8 @@ namespace SendFaxConsole
                     {
                         // load the fax's status
                         var fax = await interfax.Outbound.GetFaxRecord(faxId);
-                        // sleep if pending
+
+                        // sleep if pending for 30 seconds
                         if (fax.Status < 0)
                         {
                             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing..."));

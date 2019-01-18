@@ -14,6 +14,7 @@ namespace SendFaxConsole.Data
     
     public partial class tblFaxRequestMaster_AUDIT
     {
+        public int FaxAuditID { get; set; }
         public int FaxRequestID { get; set; }
         public int ClientID { get; set; }
         public string Fax_File_Location { get; set; }

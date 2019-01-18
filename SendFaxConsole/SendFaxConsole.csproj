@@ -62,44 +62,29 @@
     <Compile Include="Data\Models\FaxRecipientMasterModel.cs" />
     <Compile Include="Data\Models\FaxRequestMasterModel.cs" />
     <Compile Include="Data\Models\FaxRequestQueryModel.cs" />
-    <Compile Include="Data\modPPPC_AutomatedFax.Context.cs">
+    <Compile Include="Data\PPPC_AutomatedFaxEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>modPPPC_AutomatedFax.Context.tt</DependentUpon>
+      <DependentUpon>PPPC_AutomatedFaxEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\modPPPC_AutomatedFax.cs">
+    <Compile Include="Data\PPPC_AutomatedFaxEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>modPPPC_AutomatedFax.tt</DependentUpon>
+      <DependentUpon>PPPC_AutomatedFaxEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\modPPPC_AutomatedFax.Designer.cs">
+    <Compile Include="Data\PPPC_AutomatedFaxEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>modPPPC_AutomatedFax.edmx</DependentUpon>
+      <DependentUpon>PPPC_AutomatedFaxEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Data\tblFaxRecipientMaster.cs">
-      <DependentUpon>TestDataModel.tt</DependentUpon>
+      <DependentUpon>PPPC_AutomatedFaxEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\tblFaxRequestMaster.cs">
-      <DependentUpon>TestDataModel.tt</DependentUpon>
+      <DependentUpon>PPPC_AutomatedFaxEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\tblFaxRequestMaster_AUDIT.cs">
-      <DependentUpon>TestDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\TestDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TestDataModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\TestDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TestDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Data\TestDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TestDataModel.edmx</DependentUpon>
+      <DependentUpon>PPPC_AutomatedFaxEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="HelperClasses\ConsoleOutputHelper.cs" />
     <Compile Include="HelperClasses\DataFormatter.cs" />
@@ -111,19 +96,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="Data\modPPPC_AutomatedFax.edmx">
+    <EntityDeploy Include="Data\PPPC_AutomatedFaxEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>modPPPC_AutomatedFax.Designer.cs</LastGenOutput>
+      <LastGenOutput>PPPC_AutomatedFaxEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Data\modPPPC_AutomatedFax.edmx.diagram">
-      <DependentUpon>modPPPC_AutomatedFax.edmx</DependentUpon>
-    </None>
-    <EntityDeploy Include="Data\TestDataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TestDataModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Data\TestDataModel.edmx.diagram">
-      <DependentUpon>TestDataModel.edmx</DependentUpon>
+    <None Include="Data\PPPC_AutomatedFaxEntities.edmx.diagram">
+      <DependentUpon>PPPC_AutomatedFaxEntities.edmx</DependentUpon>
     </None>
     <None Include="FaxDocs\testfax.pdf" />
     <None Include="packages.config" />
@@ -132,27 +110,16 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\modPPPC_AutomatedFax.Context.tt">
+    <Content Include="Data\PPPC_AutomatedFaxEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>modPPPC_AutomatedFax.edmx</DependentUpon>
-      <LastGenOutput>modPPPC_AutomatedFax.Context.cs</LastGenOutput>
+      <DependentUpon>PPPC_AutomatedFaxEntities.edmx</DependentUpon>
+      <LastGenOutput>PPPC_AutomatedFaxEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Data\modPPPC_AutomatedFax.tt">
+    <Content Include="Data\PPPC_AutomatedFaxEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>modPPPC_AutomatedFax.edmx</DependentUpon>
-      <LastGenOutput>modPPPC_AutomatedFax.cs</LastGenOutput>
-    </Content>
-    <Content Include="Data\TestDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TestDataModel.edmx</DependentUpon>
-      <LastGenOutput>TestDataModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Data\TestDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TestDataModel.edmx</DependentUpon>
-      <LastGenOutput>TestDataModel.cs</LastGenOutput>
+      <DependentUpon>PPPC_AutomatedFaxEntities.edmx</DependentUpon>
+      <LastGenOutput>PPPC_AutomatedFaxEntities.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

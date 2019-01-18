@@ -14,7 +14,7 @@ namespace SendFaxConsole.Data
 
         protected DataProvider()
         {
-            _dataContext = new PPPC_AutomatedFaxEntities2();
+            _dataContext = new PPPC_AutomatedFaxEntities();
         }
 
         #endregion
@@ -59,13 +59,13 @@ namespace SendFaxConsole.Data
         /// named DataContext.	
         ///  
         /// </summary>
-        private PPPC_AutomatedFaxEntities2 _dataContext = null;
+        private PPPC_AutomatedFaxEntities _dataContext = null;
 
         /// <summary>
         /// Gets the value for the get only property named DataContext.	
         ///  
         /// </summary>
-        public PPPC_AutomatedFaxEntities2 DataContext
+        public PPPC_AutomatedFaxEntities DataContext
         {
             get
             {

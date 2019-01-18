@@ -12,11 +12,13 @@ namespace SendFaxConsole.Data
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
-    public partial class PPPC_AutomatedFaxEntities1 : DbContext
+    public partial class PPPC_AutomatedFaxEntities : DbContext
     {
-        public PPPC_AutomatedFaxEntities1()
-            : base("name=PPPC_AutomatedFaxEntities1")
+        public PPPC_AutomatedFaxEntities()
+            : base("name=PPPC_AutomatedFaxEntities")
         {
         }
     
@@ -28,5 +30,14 @@ namespace SendFaxConsole.Data
         public virtual DbSet<tblFaxRecipientMaster> tblFaxRecipientMasters { get; set; }
         public virtual DbSet<tblFaxRequestMaster> tblFaxRequestMasters { get; set; }
         public virtual DbSet<tblFaxRequestMaster_AUDIT> tblFaxRequestMaster_AUDIT { get; set; }
+    
+        public virtual int lsp_DeleteFaxRequest(Nullable<int> faxRequestID)
+        {
+            var faxRequestIDParameter = faxRequestID.HasValue ?
+                new ObjectParameter("FaxRequestID", faxRequestID) :
+                new ObjectParameter("FaxRequestID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("lsp_DeleteFaxRequest", faxRequestIDParameter);
+        }
     }
 }

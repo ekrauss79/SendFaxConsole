@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PPPC_AutomatedFaxModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="PPPC_AutomatedFaxModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblFaxRecipientMaster">
           <Key>
             <PropertyRef Name="ClientID" />
@@ -28,16 +28,11 @@
           <Property Name="Date_Requested" Type="smalldatetime" Nullable="false" />
           <Property Name="Date_Last_Sent" Type="smalldatetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PPPC_AutomatedFax.dbo.tblFaxRequestMaster_AUDIT' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="tblFaxRequestMaster_AUDIT">
           <Key>
-            <PropertyRef Name="FaxRequestID" />
-            <PropertyRef Name="ClientID" />
-            <PropertyRef Name="Fax_File_Location" />
-            <PropertyRef Name="Date_Requested" />
-            <PropertyRef Name="Fax_Status" />
+            <PropertyRef Name="FaxAuditID" />
           </Key>
+          <Property Name="FaxAuditID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FaxRequestID" Type="int" Nullable="false" />
           <Property Name="ClientID" Type="int" Nullable="false" />
           <Property Name="Fax_File_Location" Type="nvarchar" MaxLength="1000" Nullable="false" />
@@ -45,21 +40,16 @@ warning 6002: The table/view 'PPPC_AutomatedFax.dbo.tblFaxRequestMaster_AUDIT' d
           <Property Name="Date_Last_Sent" Type="smalldatetime" />
           <Property Name="Fax_Status" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Function Name="lsp_DeleteFaxRequest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FaxRequestID" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="PPPC_AutomatedFaxModelStoreContainer">
           <EntitySet Name="tblFaxRecipientMaster" EntityType="Self.tblFaxRecipientMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFaxRequestMaster" EntityType="Self.tblFaxRequestMaster" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblFaxRequestMaster_AUDIT" EntityType="Self.tblFaxRequestMaster_AUDIT" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [tblFaxRequestMaster_AUDIT].[FaxRequestID] AS [FaxRequestID], 
-    [tblFaxRequestMaster_AUDIT].[ClientID] AS [ClientID], 
-    [tblFaxRequestMaster_AUDIT].[Fax_File_Location] AS [Fax_File_Location], 
-    [tblFaxRequestMaster_AUDIT].[Date_Requested] AS [Date_Requested], 
-    [tblFaxRequestMaster_AUDIT].[Date_Last_Sent] AS [Date_Last_Sent], 
-    [tblFaxRequestMaster_AUDIT].[Fax_Status] AS [Fax_Status]
-    FROM [dbo].[tblFaxRequestMaster_AUDIT] AS [tblFaxRequestMaster_AUDIT]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="tblFaxRequestMaster_AUDIT" EntityType="Self.tblFaxRequestMaster_AUDIT" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PPPC_AutomatedFaxModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -86,32 +76,32 @@ warning 6002: The table/view 'PPPC_AutomatedFax.dbo.tblFaxRequestMaster_AUDIT' d
           <Property Name="Date_Requested" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Date_Last_Sent" Type="DateTime" Precision="0" />
         </EntityType>
-        <EntityContainer Name="PPPC_AutomatedFaxEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tblFaxRecipientMasters" EntityType="Self.tblFaxRecipientMaster" />
-          <EntitySet Name="tblFaxRequestMasters" EntityType="Self.tblFaxRequestMaster" />
-          <EntitySet Name="tblFaxRequestMaster_AUDIT" EntityType="PPPC_AutomatedFaxModel.tblFaxRequestMaster_AUDIT" />
-        </EntityContainer>
         <EntityType Name="tblFaxRequestMaster_AUDIT">
           <Key>
-            <PropertyRef Name="FaxRequestID" />
-            <PropertyRef Name="ClientID" />
-            <PropertyRef Name="Fax_File_Location" />
-            <PropertyRef Name="Date_Requested" />
-            <PropertyRef Name="Fax_Status" />
+            <PropertyRef Name="FaxAuditID" />
           </Key>
+          <Property Name="FaxAuditID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FaxRequestID" Type="Int32" Nullable="false" />
           <Property Name="ClientID" Type="Int32" Nullable="false" />
-          <Property Name="Fax_File_Location" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Fax_File_Location" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Date_Requested" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Date_Last_Sent" Type="DateTime" Precision="0" />
-          <Property Name="Fax_Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fax_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
+        <EntityContainer Name="PPPC_AutomatedFaxEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblFaxRecipientMasters" EntityType="Self.tblFaxRecipientMaster" />
+          <EntitySet Name="tblFaxRequestMasters" EntityType="Self.tblFaxRequestMaster" />
+          <EntitySet Name="tblFaxRequestMaster_AUDIT" EntityType="Self.tblFaxRequestMaster_AUDIT" />
+          <FunctionImport Name="lsp_DeleteFaxRequest">
+            <Parameter Name="FaxRequestID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PPPC_AutomatedFaxModelStoreContainer" CdmEntityContainer="PPPC_AutomatedFaxEntities1">
+        <EntityContainerMapping StorageEntityContainer="PPPC_AutomatedFaxModelStoreContainer" CdmEntityContainer="PPPC_AutomatedFaxEntities">
           <EntitySetMapping Name="tblFaxRecipientMasters">
             <EntityTypeMapping TypeName="PPPC_AutomatedFaxModel.tblFaxRecipientMaster">
               <MappingFragment StoreEntitySet="tblFaxRecipientMaster">
@@ -140,15 +130,17 @@ warning 6002: The table/view 'PPPC_AutomatedFax.dbo.tblFaxRequestMaster_AUDIT' d
           <EntitySetMapping Name="tblFaxRequestMaster_AUDIT">
             <EntityTypeMapping TypeName="PPPC_AutomatedFaxModel.tblFaxRequestMaster_AUDIT">
               <MappingFragment StoreEntitySet="tblFaxRequestMaster_AUDIT">
-                <ScalarProperty Name="Fax_Status" ColumnName="Fax_Status" />
-                <ScalarProperty Name="Date_Last_Sent" ColumnName="Date_Last_Sent" />
-                <ScalarProperty Name="Date_Requested" ColumnName="Date_Requested" />
-                <ScalarProperty Name="Fax_File_Location" ColumnName="Fax_File_Location" />
-                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="FaxAuditID" ColumnName="FaxAuditID" />
                 <ScalarProperty Name="FaxRequestID" ColumnName="FaxRequestID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="Fax_File_Location" ColumnName="Fax_File_Location" />
+                <ScalarProperty Name="Date_Requested" ColumnName="Date_Requested" />
+                <ScalarProperty Name="Date_Last_Sent" ColumnName="Date_Last_Sent" />
+                <ScalarProperty Name="Fax_Status" ColumnName="Fax_Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="lsp_DeleteFaxRequest" FunctionName="PPPC_AutomatedFaxModel.Store.lsp_DeleteFaxRequest" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

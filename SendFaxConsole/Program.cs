@@ -14,6 +14,17 @@ using InterFAX.Api.Dtos;
 
 //using SendFaxConsole.
 
+/*******************************************************************
+ * 1/17/2019 - you need to externalize the usernale the program uses
+ * 
+ * 1/17/2019 - you should also create a debug flag that will change 
+ * it back to the development user
+ * 
+ * 1/17/2019 - You need to now test with it released on your system
+ * and then install it internally on Bens system
+ * 
+ * *****************************************************************/
+
 namespace SendFaxConsole
 {
     class Program

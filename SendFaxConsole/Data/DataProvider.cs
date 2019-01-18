@@ -90,13 +90,14 @@ namespace SendFaxConsole.Data
         public string InsertFaxRequestAuditRecord(FaxRequestQueryModel model)
         {
             string returnVal = "failure";
-
+             
             tblFaxRequestMaster_AUDIT myFaxRequestMaster_AUDIT = new tblFaxRequestMaster_AUDIT();
 
             myFaxRequestMaster_AUDIT.FaxRequestID = model.FaxRequestID;
             myFaxRequestMaster_AUDIT.ClientID = model.ClientID;
             myFaxRequestMaster_AUDIT.Fax_File_Location = model.Fax_File_Location;
-            myFaxRequestMaster_AUDIT.Date_Requested = DateTime.Today;
+            myFaxRequestMaster_AUDIT.Date_Requested = model.Date_Requested;
+            myFaxRequestMaster_AUDIT.Date_Last_Sent = DateTime.Now;
             myFaxRequestMaster_AUDIT.Fax_Status = model.Fax_Status;
 
             try
@@ -236,7 +237,8 @@ namespace SendFaxConsole.Data
                         FaxRequestID = faxRequester.FaxRequestID,
                         Client_Name = faxRecipients.Client_Contact_Name,
                         Client_Fax_Number = faxRecipients.Client_Fax_Number,
-                        Fax_File_Location = faxRequester.Fax_File_Location
+                        Fax_File_Location = faxRequester.Fax_File_Location,
+                        Date_Requested = faxRequester.Date_Requested
                     }).ToList();
         }
 

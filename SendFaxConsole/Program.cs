@@ -59,13 +59,13 @@ namespace SendFaxConsole
             //create the log file
             StreamWriter myLog;
 
-            if (!File.Exists("logfile.txt"))
+            if (!File.Exists("C:\\temp\\faxlog.txt"))
             {
-                myLog = new StreamWriter("logfile.txt");
+                myLog = new StreamWriter("C:\\temp\\faxlog.txt");
             }
             else
             {
-                myLog = File.AppendText("logfile.txt");
+                myLog = File.AppendText("C:\\temp\\faxlog.txt");
             }
 
             //log the event

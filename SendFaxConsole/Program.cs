@@ -47,6 +47,15 @@ namespace SendFaxConsole
         static private async Task SendFaxAsync2()
         {
 
+            //pull in the config file string values
+            string myDEVUserName = System.Configuration.ConfigurationSettings.AppSettings["DEV_Username"];
+            string myDEVPassword = System.Configuration.ConfigurationSettings.AppSettings["DEV_Password"];
+            string myPRODUserName = System.Configuration.ConfigurationSettings.AppSettings["PROD_Username"];
+            string myPRODPassword = System.Configuration.ConfigurationSettings.AppSettings["PROD_Password"];
+            string myPRODFlag = System.Configuration.ConfigurationSettings.AppSettings["IsPROD"];
+            string myCurrentUsername = "";
+            string myCurrentPassword = "";
+
             //create the log file
             StreamWriter myLog;
 
@@ -59,16 +68,34 @@ namespace SendFaxConsole
                 myLog = File.AppendText("logfile.txt");
             }
 
+            //log the event
+            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("////-------------FAX PROCESS INITIATED------------\\\\"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("The fax software PROD flag is currently set up " + myPRODFlag));
+            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("The fax software PROD flag is currently set up " + myPRODFlag));
+
             int totalCount = 0;
             int currentRecordNumber = 1;
 
             //Create the fax client with the user information
-            var interfax = new FaxClient(username: "erickrauss", password: "V2shC2t1!");
+            if (myPRODFlag == "true")
+            {
+                Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* SOFTWARE SET TO PRODUCTION MODE *******"));
+                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* SOFTWARE SET TO PRODUCTION MODE *******"));
+                myCurrentUsername = myPRODUserName;
+                myCurrentPassword = myPRODPassword;
+            }
+            else
+            {
+                Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* SOFTWARE SET TO DEVELOPMENT MODE *******"));
+                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* SOFTWARE SET TO DEVELOPMENT MODE *******"));
+                myCurrentUsername = myDEVUserName;
+                myCurrentPassword = myDEVPassword;
+            }
 
-            //log the event
-            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("////-------------FAX PROCESS INITIATED------------\\\\"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Initiating new Fax Client for user: erickrauss"));
-            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Initiating new Fax Client for user: erickrauss"));
+            //this is the DEV account login
+            var interfax = new FaxClient(username: myCurrentUsername, password: myCurrentPassword);
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Initiating new Fax Client for user: " + myCurrentUsername));
+            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Initiating new Fax Client for user: " + myCurrentUsername));
 
             try
             {

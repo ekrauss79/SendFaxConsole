@@ -24,29 +24,21 @@ namespace SendFaxConsole
 
         public static string SendExchangeMail()
         {
-            ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2010_SP1);
+            // Command line argument must the the SMTP host.
+            SmtpClient client = new SmtpClient();
+            client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            client.EnableSsl = true;
+            client.Timeout = 10000;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new System.Net.NetworkCredential("ekrauss@gmail.com", "V2shC2t1!!!");
 
-            // Set user login credentials
+            MailMessage mm = new MailMessage("ekrauss@gmail.com", "ekrauss@gmail.com", "test", "test");
+            mm.BodyEncoding = UTF8Encoding.UTF8;
+            mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
 
-            service.Credentials = new WebCredentials("ekrauss@propharmaconsultants.com", "ProPharma#1");
-
-            try
-            {
-                //Set Office 365 Exchange Webserivce Url
-                string serviceUrl = "https://outlook.office365.com/ews/exchange.asmx";
-                service.Url = new Uri(serviceUrl);
-                EmailMessage emailMessage = new EmailMessage(service);
-                emailMessage.From = "ekrauss@propharmaconsultants.com";
-                emailMessage.Subject = "Subject";
-                emailMessage.Body = new MessageBody("Cupofdev Exchange Web Service API");
-                emailMessage.ToRecipients.Add("ekrauss@gmail.com");
-                emailMessage.SendAndSaveCopy();
-            }
-            catch (AutodiscoverRemoteException exception)
-            {
-                // handle exception
-                throw exception;
-            }
+            client.Send(mm);
 
             return "true";
 

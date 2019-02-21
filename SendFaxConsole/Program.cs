@@ -12,6 +12,7 @@ using SendFaxConsole.HelperClasses;
 using SendFaxConsole.Data.Models;
 using InterFAX.Api.Dtos;
 using System.Net.Mail;
+using System.Text;
 using SendFaxConsole;
 
 
@@ -48,7 +49,6 @@ namespace SendFaxConsole
             String returnVal = "";
 
             returnVal = SendFaxConsole.SendMail.SendExchangeMail();
-
 
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(""));
             //SendFaxAsync2().Wait();

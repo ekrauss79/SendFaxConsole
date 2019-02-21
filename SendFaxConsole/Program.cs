@@ -12,6 +12,8 @@ using SendFaxConsole.HelperClasses;
 using SendFaxConsole.Data.Models;
 using InterFAX.Api.Dtos;
 using System.Net.Mail;
+using SendFaxConsole;
+
 
 //using SendFaxConsole.
 
@@ -43,24 +45,9 @@ namespace SendFaxConsole
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("****************************************"));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(""));
 
-            /******
-            String userName = "ekrauss@propharmaconsultants.com";
-            String password = "ProPharma#1";
-            MailMessage msg = new MailMessage();
-            msg.To.Add(new MailAddress("ekrauss@gmail.com"));
-            msg.From = new MailAddress(userName);
-            msg.Subject = "Test Office 365 Account";
-            msg.Body = "Testing email using Office 365 account.";
-            msg.IsBodyHtml = true;
-            SmtpClient client = new SmtpClient();
-            client.Host = "smtp.office365.com";
-            client.UseDefaultCredentials = false;
-            client.Credentials = new System.Net.NetworkCredential(userName, password);
-            client.Port = 587;
-            client.EnableSsl = true;
-            client.Send(msg);
-            **********/
+            String returnVal = "";
 
+            returnVal = SendFaxConsole.SendMail.SendExchangeMail();
 
 
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(""));

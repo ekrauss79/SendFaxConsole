@@ -65,6 +65,7 @@ namespace SendFaxConsole
             string myCurrentPassword = "";
             string myEmailSuccess = "";
             string myRunTYpe = "";
+            string myEmailResult = "";
 
 
             //create the log file
@@ -156,8 +157,6 @@ namespace SendFaxConsole
                         //increment the record number
                         currentRecordNumber++;
 
-                        string myEmailResult = "";
-
                         if (myEmailSuccess == "success") //Successful email
                         {
 
@@ -198,7 +197,7 @@ namespace SendFaxConsole
                                 myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myEmailSuccess));
                             }
 
-                            Debug.WriteLine("Sent!");
+                            Debug.WriteLine("Email Sent!");
                             break;
                         }
                         else //Failure
@@ -247,121 +246,219 @@ namespace SendFaxConsole
                             break;
                         }
                     }
-                    else
+                    else //this means that the runtype is either fax or both
                     {
 
-                    }
+                        //log the event
+                        Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing Fax records " + currentRecordNumber + " of " + totalCount));
+                        myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing Fax records " + currentRecordNumber + " of " + totalCount));
 
-                    //log the event
-                    Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing Fax records " + currentRecordNumber + " of " + totalCount));
-                    myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing Fax records " + currentRecordNumber + " of " + totalCount));
+                        //Send the fax with options
+                        var faxId = await interfax.Outbound.SendFax(
+                                    interfax.Documents.BuildFaxDocument(faxRequest.Fax_File_Location),
+                                    new SendOptions
+                                    {
+                                        FaxNumber = faxRequest.Client_Fax_Number,
+                                        ShouldScale = true,
+                                        PageOrientation = PageOrientation.Landscape,
+                                        PageSize = PageSize.Letter
+                                    }
+                        );
 
-                    //Send the fax with options
-                    var faxId = await interfax.Outbound.SendFax(
-                                interfax.Documents.BuildFaxDocument(faxRequest.Fax_File_Location),
-                                new SendOptions
-                                {
-                                    FaxNumber = faxRequest.Client_Fax_Number,
-                                    ShouldScale = true,
-                                    PageOrientation = PageOrientation.Landscape, 
-                                    PageSize = PageSize.Letter
-                                }
-                    );
-
-                    //send the email
-                    Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for number " + faxRequest.Client_Fax_Number));
-                    myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for number " + faxRequest.Client_Fax_Number));
-                    //myEmailSuccess = SendFaxConsole.SendMail.SendExchangeMail();
-
-                    //log the event
-                    Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing Fax record for number " + faxRequest.Client_Fax_Number));
-                    myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing Fax record for number " + faxRequest.Client_Fax_Number));
-
-                    //increment the record number
-                    currentRecordNumber++;
-
-                    string myResult = "";
-
-                    // wait for the fax to be delivered successfully
-                    while (true)
-                    {
-                        // load the fax's status
-                        var fax = await interfax.Outbound.GetFaxRecord(faxId);
-
-                        // sleep if pending for 30 seconds
-                        if (fax.Status < 0)
+                        if (myConfigModel.ConfigurationValue == "both")
                         {
-                            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing..."));
-                            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing..."));
-                            Thread.Sleep(30000);
-                        }
-                        else if (fax.Status == 0) //Successful Fax
-                        {
+                            //send the email
+                            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
+                            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
+                            myEmailSuccess = SendFaxConsole.SendMail.SendExchangeMail(faxRequest.Client_Email, faxRequest.Fax_File_Location, myGmailUsername, myGmailPassword, myGmailFromAddress);
 
-                            //update the record in the model to success
-                            faxRequest.Fax_Status = "success";
 
-                            //write to the audit file
-                            myResult = DataProvider.Instance.InsertFaxRequestAuditRecord(faxRequest);
-                            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("AUDIT PROCESS:  Attempted to write to the audit file in success process."));
-
-                            if (myResult == "success")
+                            if (myEmailSuccess == "success") //Successful email
                             {
-                                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("AUDIT PROCESS:  Successful write to the audit file."));
-                                //Delete the record from the transaction file
-                                myResult = DataProvider.Instance.DeleteFaxRequest(faxRequest);
+
+                                //update the record in the model to success
+                                faxRequest.Fax_Status = "success";
+
+                                //write to the audit file
+                                myEmailResult = DataProvider.Instance.InsertFaxRequestAuditRecord(faxRequest);
+                                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("AUDIT PROCESS:  Attempted to write to the audit file in success process."));
+
+                                if (myEmailResult == "success")
+                                {
+                                    myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("AUDIT PROCESS:  Successful write to the audit file."));
+
+                                    if (myEmailResult == "success")
+                                    {
+                                        //log the event
+                                        Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Email + " successfully sent!"));
+                                        myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Email + " successfully sent!"));
+                                    }
+                                    else
+                                    {
+                                        //log the event
+                                        Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myEmailResult));
+                                        myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myEmailResult));
+                                        //log the event
+                                        Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Email + " successfully sent, but with audit issues.  Please refer to the log for more details."));
+                                        myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Email + "  successfully sent, but with audit issues.  Please refer to the log for more details."));
+                                    }
+
+                                }
+                                else
+                                {
+                                    //log the event
+                                    Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myEmailSuccess));
+                                    myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myEmailSuccess));
+                                }
+
+                                Debug.WriteLine("Email Sent!");
+                                break;
+                            }
+                            else //Failure
+                            {
+                                //log the event
+                                Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Email + " Failed"));
+                                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Email + " Failed"));
+
+                                //update the record in the model to success
+                                faxRequest.Fax_Status = "failure";
+
+                                //write to the aidut file
+                                myEmailResult = DataProvider.Instance.InsertFaxRequestAuditRecord(faxRequest);
+                                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("AUDIT PROCESS:  Attempted to write to the audit file in failure process."));
+
+                                if (myEmailResult == "success")
+                                {
+                                    myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("AUDIT PROCESS:  Successful write to the audit file."));
+                                    //Delete the record from the transaction file
+                                    myEmailResult = DataProvider.Instance.DeleteFaxRequest(faxRequest);
+
+                                    if (myEmailResult == "success")
+                                    {
+                                        //log the event
+                                        Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " failed to send."));
+                                        myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " failed to send."));
+                                    }
+                                    else
+                                    {
+                                        //log the event
+                                        Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myEmailSuccess));
+                                        myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myEmailSuccess));
+                                    }
+
+                                }
+                                else
+                                {
+                                    //log the event
+                                    Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myEmailSuccess));
+                                    myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myEmailSuccess));
+                                }
+
+                                //log the event
+                                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage($"Error: " + myEmailSuccess));
+                                Debug.WriteLine($"Error: " + myEmailSuccess);
+                                break;
+                            }
+
+                        }
+
+                        //log the event
+                        Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing Fax record for number " + faxRequest.Client_Fax_Number));
+                        myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing Fax record for number " + faxRequest.Client_Fax_Number));
+
+                        //increment the record number
+                        currentRecordNumber++;
+
+                        string myResult = "";
+
+                        // wait for the fax to be delivered successfully
+                        while (true)
+                        {
+                            // load the fax's status
+                            var fax = await interfax.Outbound.GetFaxRecord(faxId);
+
+                            // sleep if pending for 30 seconds
+                            if (fax.Status < 0)
+                            {
+                                Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing..."));
+                                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing..."));
+                                Thread.Sleep(30000);
+                            }
+                            else if (fax.Status == 0) //Successful Fax
+                            {
+
+                                //update the record in the model to success
+                                faxRequest.Fax_Status = "success";
+
+                                //write to the audit file
+                                myResult = DataProvider.Instance.InsertFaxRequestAuditRecord(faxRequest);
+                                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("AUDIT PROCESS:  Attempted to write to the audit file in success process."));
 
                                 if (myResult == "success")
                                 {
-                                    //log the event
-                                    Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " successfully sent!"));
-                                    myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " successfully sent!"));
+                                    myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("AUDIT PROCESS:  Successful write to the audit file."));
+                                    //Delete the record from the transaction file
+                                    myResult = DataProvider.Instance.DeleteFaxRequest(faxRequest);
+
+                                    if (myResult == "success")
+                                    {
+                                        //log the event
+                                        Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " successfully sent!"));
+                                        myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " successfully sent!"));
+                                    }
+                                    else
+                                    {
+                                        //log the event
+                                        Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myResult));
+                                        myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myResult));
+                                        //log the event
+                                        Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " successfully sent, but with audit issues.  Please refer to the log for more details."));
+                                        myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + "  successfully sent, but with audit issues.  Please refer to the log for more details."));
+                                    }
+
                                 }
                                 else
                                 {
                                     //log the event
                                     Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myResult));
                                     myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myResult));
-                                    //log the event
-                                    Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " successfully sent, but with audit issues.  Please refer to the log for more details."));
-                                    myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + "  successfully sent, but with audit issues.  Please refer to the log for more details."));
                                 }
 
+                                Debug.WriteLine("Fax Sent!");
+                                break;
                             }
-                            else
+                            else //Failure
                             {
                                 //log the event
-                                Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myResult));
-                                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myResult));
-                            }
+                                Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " Failed"));
+                                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " Failed"));
 
-                            Debug.WriteLine("Sent!");
-                            break;
-                        }
-                        else //Failure
-                        {
-                            //log the event
-                            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " Failed"));
-                            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " Failed"));
+                                //update the record in the model to success
+                                faxRequest.Fax_Status = "failure";
 
-                            //update the record in the model to success
-                            faxRequest.Fax_Status = "failure";
-
-                            //write to the aidut file
-                            myResult = DataProvider.Instance.InsertFaxRequestAuditRecord(faxRequest);
-                            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("AUDIT PROCESS:  Attempted to write to the audit file in failure process."));
-
-                            if (myResult == "success")
-                            {
-                                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("AUDIT PROCESS:  Successful write to the audit file."));
-                                //Delete the record from the transaction file
-                                myResult = DataProvider.Instance.DeleteFaxRequest(faxRequest);
+                                //write to the aidut file
+                                myResult = DataProvider.Instance.InsertFaxRequestAuditRecord(faxRequest);
+                                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("AUDIT PROCESS:  Attempted to write to the audit file in failure process."));
 
                                 if (myResult == "success")
                                 {
-                                    //log the event
-                                    Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " failed to send."));
-                                    myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " failed to send."));
+                                    myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("AUDIT PROCESS:  Successful write to the audit file."));
+                                    //Delete the record from the transaction file
+                                    myResult = DataProvider.Instance.DeleteFaxRequest(faxRequest);
+
+                                    if (myResult == "success")
+                                    {
+                                        //log the event
+                                        Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " failed to send."));
+                                        myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " failed to send."));
+                                    }
+                                    else
+                                    {
+                                        //log the event
+                                        Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myResult));
+                                        myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myResult));
+                                    }
+
                                 }
                                 else
                                 {
@@ -370,18 +467,12 @@ namespace SendFaxConsole
                                     myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myResult));
                                 }
 
-                            }
-                            else
-                            {
                                 //log the event
-                                Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myResult));
-                                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(myResult));
+                                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage($"Error: {fax.Status}"));
+                                Debug.WriteLine($"Error: {fax.Status}");
+                                break;
                             }
 
-                            //log the event
-                            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage($"Error: {fax.Status}"));
-                            Debug.WriteLine($"Error: {fax.Status}");
-                            break;
                         }
 
                     }

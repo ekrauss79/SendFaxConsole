@@ -42,7 +42,7 @@ namespace SendFaxConsole
 
                 client.Send(mm);
 
-                return "true";
+                return "success";
 
             }
             catch (Exception ex)

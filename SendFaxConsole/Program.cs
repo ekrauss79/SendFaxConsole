@@ -46,12 +46,7 @@ namespace SendFaxConsole
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("****************************************"));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(""));
 
-            String returnVal = "";
-
-            returnVal = SendFaxConsole.SendMail.SendExchangeMail();
-
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(""));
-            //SendFaxAsync2().Wait();
+            SendFaxAsync2().Wait();
         }
 
         static private async Task SendFaxAsync2()
@@ -65,6 +60,7 @@ namespace SendFaxConsole
             string myPRODFlag = System.Configuration.ConfigurationSettings.AppSettings["IsPROD"];
             string myCurrentUsername = "";
             string myCurrentPassword = "";
+            string returnVal = "";
 
             //create the log file
             StreamWriter myLog;
@@ -145,6 +141,10 @@ namespace SendFaxConsole
                                 }
                     );
 
+                    //send the email
+                    Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for number " + faxRequest.Client_Fax_Number));
+                    myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for number " + faxRequest.Client_Fax_Number));
+                    returnVal = SendFaxConsole.SendMail.SendExchangeMail();
 
                     //log the event
                     Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing Fax record for number " + faxRequest.Client_Fax_Number));

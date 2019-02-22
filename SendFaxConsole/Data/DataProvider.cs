@@ -247,7 +247,7 @@ namespace SendFaxConsole.Data
         {
 
             return (from configuration in DataContext.tblConfigurations
-                    where configuration.ConfigurationType == "RunType"
+                    where configuration.ConfigurationType == "runtype"
                     select new ConfigurationModel
                     {
                         ConfigurationValue = configuration.ConfigurationValue

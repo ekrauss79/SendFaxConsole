@@ -8,6 +8,7 @@
         <EntityTypeShape EntityType="PPPC_AutomatedFaxModel.tblFaxRecipientMaster" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PPPC_AutomatedFaxModel.tblFaxRequestMaster" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PPPC_AutomatedFaxModel.tblFaxRequestMaster_AUDIT" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PPPC_AutomatedFaxModel.tblConfiguration" Width="2.625" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -4,12 +4,20 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PPPC_AutomatedFaxModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PPPC_AutomatedFaxModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblConfiguration">
+          <Key>
+            <PropertyRef Name="ConfigurationTypeID" />
+          </Key>
+          <Property Name="ConfigurationTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConfigurationType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ConfigurationValue" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblFaxRecipientMaster">
           <Key>
             <PropertyRef Name="ClientID" />
           </Key>
-          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Client_Name" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="Client_Contact_Name" Type="nvarchar" MaxLength="250" />
           <Property Name="Client_Fax_Number" Type="char" MaxLength="10" Nullable="false" />
@@ -17,6 +25,7 @@
           <Property Name="Audit_Date" Type="smalldatetime" Nullable="false" />
           <Property Name="Audit_Time" Type="smalldatetime" Nullable="false" />
           <Property Name="Audit_User" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Client_Email" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tblFaxRequestMaster">
           <Key>
@@ -44,12 +53,12 @@
           <Parameter Name="FaxRequestID" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="PPPC_AutomatedFaxModelStoreContainer">
+          <EntitySet Name="tblConfiguration" EntityType="Self.tblConfiguration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFaxRecipientMaster" EntityType="Self.tblFaxRecipientMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFaxRequestMaster" EntityType="Self.tblFaxRequestMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFaxRequestMaster_AUDIT" EntityType="Self.tblFaxRequestMaster_AUDIT" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PPPC_AutomatedFaxModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -65,6 +74,7 @@
           <Property Name="Audit_Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Audit_Time" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Audit_User" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Client_Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblFaxRequestMaster">
           <Key>
@@ -93,9 +103,18 @@
           <EntitySet Name="tblFaxRequestMasters" EntityType="Self.tblFaxRequestMaster" />
           <EntitySet Name="tblFaxRequestMaster_AUDIT" EntityType="Self.tblFaxRequestMaster_AUDIT" />
           <FunctionImport Name="lsp_DeleteFaxRequest">
-            <Parameter Name="FaxRequestID" Mode="In" Type="Int32" />
+          <Parameter Name="FaxRequestID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="tblConfigurations" EntityType="PPPC_AutomatedFaxModel.tblConfiguration" />
         </EntityContainer>
+        <EntityType Name="tblConfiguration">
+          <Key>
+            <PropertyRef Name="ConfigurationTypeID" />
+          </Key>
+          <Property Name="ConfigurationTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ConfigurationType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConfigurationValue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -105,6 +124,7 @@
           <EntitySetMapping Name="tblFaxRecipientMasters">
             <EntityTypeMapping TypeName="PPPC_AutomatedFaxModel.tblFaxRecipientMaster">
               <MappingFragment StoreEntitySet="tblFaxRecipientMaster">
+                <ScalarProperty Name="Client_Email" ColumnName="Client_Email" />
                 <ScalarProperty Name="ClientID" ColumnName="ClientID" />
                 <ScalarProperty Name="Client_Name" ColumnName="Client_Name" />
                 <ScalarProperty Name="Client_Contact_Name" ColumnName="Client_Contact_Name" />
@@ -141,6 +161,15 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="lsp_DeleteFaxRequest" FunctionName="PPPC_AutomatedFaxModel.Store.lsp_DeleteFaxRequest" />
+          <EntitySetMapping Name="tblConfigurations">
+            <EntityTypeMapping TypeName="PPPC_AutomatedFaxModel.tblConfiguration">
+              <MappingFragment StoreEntitySet="tblConfiguration">
+                <ScalarProperty Name="ConfigurationValue" ColumnName="ConfigurationValue" />
+                <ScalarProperty Name="ConfigurationType" ColumnName="ConfigurationType" />
+                <ScalarProperty Name="ConfigurationTypeID" ColumnName="ConfigurationTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

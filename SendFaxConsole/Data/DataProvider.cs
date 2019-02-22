@@ -238,9 +238,22 @@ namespace SendFaxConsole.Data
                         Client_Name = faxRecipients.Client_Contact_Name,
                         Client_Fax_Number = faxRecipients.Client_Fax_Number,
                         Fax_File_Location = faxRequester.Fax_File_Location,
-                        Date_Requested = faxRequester.Date_Requested
+                        Date_Requested = faxRequester.Date_Requested,
+                        Client_Email = faxRecipients.Client_Email
                     }).ToList();
         }
+
+        public ConfigurationModel GetRunTypeConfiguration()
+        {
+
+            return (from configuration in DataContext.tblConfigurations
+                    where configuration.ConfigurationType == "RunType"
+                    select new ConfigurationModel
+                    {
+                        ConfigurationValue = configuration.ConfigurationValue
+                    }).FirstOrDefault();
+        }
+
 
         /*
         public FundraisingModel GetFundraisingCampaign(int userID, int fundraisingID)
@@ -285,7 +298,7 @@ namespace SendFaxConsole.Data
                     }).OrderByDescending(m => m.CampaignStartDate).ToList();
         }
         */
- 
+
 
         #endregion
 

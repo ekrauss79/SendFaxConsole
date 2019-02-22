@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\DataProvider.cs" />
+    <Compile Include="Data\Models\ConfigurationModel.cs" />
     <Compile Include="Data\Models\FaxRecipientMasterModel.cs" />
     <Compile Include="Data\Models\FaxRequestMasterModel.cs" />
     <Compile Include="Data\Models\FaxRequestQueryModel.cs" />
@@ -110,6 +111,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PPPC_AutomatedFaxEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tblConfiguration.cs">
+      <DependentUpon>PPPC_AutomatedFaxEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\tblFaxRecipientMaster.cs">
       <DependentUpon>PPPC_AutomatedFaxEntities.tt</DependentUpon>

@@ -18,6 +18,7 @@ namespace SendFaxConsole.Data.Models
         public string Fax_File_Location { get; set; }
         public string Fax_Status { get; set; }
         public System.DateTime Date_Requested { get; set; }
+        public string Client_Email { get; set; }
 
         #endregion
 

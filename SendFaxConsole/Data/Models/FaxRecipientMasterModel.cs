@@ -18,6 +18,7 @@ namespace SendFaxConsole.Data.Models
         public System.DateTime Audit_Date { get; set; }
         public System.DateTime Audit_Time { get; set; }
         public string Audit_User { get; set; }
+        public string Client_Email { get; set; } 
 
         #endregion
     }

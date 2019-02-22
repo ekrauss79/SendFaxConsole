@@ -12,16 +12,10 @@ namespace SendFaxConsole.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class tblFaxRecipientMaster
+    public partial class tblConfiguration
     {
-        public int ClientID { get; set; }
-        public string Client_Name { get; set; }
-        public string Client_Contact_Name { get; set; }
-        public string Client_Fax_Number { get; set; }
-        public string Client_Phone_Number { get; set; }
-        public System.DateTime Audit_Date { get; set; }
-        public System.DateTime Audit_Time { get; set; }
-        public string Audit_User { get; set; }
-        public string Client_Email { get; set; }
+        public int ConfigurationTypeID { get; set; }
+        public string ConfigurationType { get; set; }
+        public string ConfigurationValue { get; set; }
     }
 }

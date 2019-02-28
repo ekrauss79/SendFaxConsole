@@ -198,7 +198,6 @@ namespace SendFaxConsole
                             }
 
                             Debug.WriteLine("Email Sent!");
-                            break;
                         }
                         else //Failure
                         {
@@ -312,7 +311,6 @@ namespace SendFaxConsole
                                 }
 
                                 Debug.WriteLine("Email Sent!");
-                                break;
                             }
                             else //Failure
                             {

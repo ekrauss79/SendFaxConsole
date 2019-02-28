@@ -14,7 +14,8 @@ using InterFAX.Api.Dtos;
 using System.Net.Mail;
 using Microsoft.Exchange.WebServices.Data;
 using Microsoft.Exchange.WebServices.Autodiscover;
-
+using System.Net.Mail;
+using System.Net.Mime;
 
 namespace SendFaxConsole
 {
@@ -22,7 +23,7 @@ namespace SendFaxConsole
     {
         // Create a new Exchange service object
 
-        public static string SendExchangeMail(string clientEmailAddress, string fileLocation, string gmailUserNamne, string gmailPassword, string gmailFromAddress)
+        public static string SendExchangeMail(string clientEmailAddress, string fileLocation, string gmailUserNamne, string gmailPassword, string gmailFromAddress, string attachmentFilename)
         {
             try
             {
@@ -36,11 +37,29 @@ namespace SendFaxConsole
                 client.UseDefaultCredentials = false;
                 client.Credentials = new System.Net.NetworkCredential(gmailUserNamne, gmailPassword);
 
-                MailMessage mm = new MailMessage(gmailFromAddress, clientEmailAddress, "This is the Subject", "This is the body");
-                mm.BodyEncoding = UTF8Encoding.UTF8;
-                mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+                MailMessage message = new MailMessage();
+                MailAddress fromAddress = new MailAddress(gmailFromAddress);
+                message.From = fromAddress;
+                message.Subject = "This is the Subject";
+                message.Body = "This is the body";
+                message.To.Add(clientEmailAddress);
+                message.BodyEncoding = UTF8Encoding.UTF8;
+                message.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
 
-                client.Send(mm);
+                if (attachmentFilename != null)
+                {
+                    System.Net.Mail.Attachment attachment = new System.Net.Mail.Attachment(attachmentFilename, System.Net.Mime.MediaTypeNames.Application.Octet);
+                    System.Net.Mime.ContentDisposition disposition = attachment.ContentDisposition;
+                    disposition.CreationDate = File.GetCreationTime(attachmentFilename);
+                    disposition.ModificationDate = File.GetLastWriteTime(attachmentFilename);
+                    disposition.ReadDate = File.GetLastAccessTime(attachmentFilename);
+                    disposition.FileName = Path.GetFileName(attachmentFilename);
+                    disposition.Size = new FileInfo(attachmentFilename).Length;
+                    disposition.DispositionType = DispositionTypeNames.Attachment;
+                    message.Attachments.Add(attachment);
+                }
+
+                client.Send(message);
 
                 return "success";
 

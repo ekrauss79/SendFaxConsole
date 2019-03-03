@@ -111,11 +111,6 @@ namespace SendFaxConsole
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* PROGRAM RUN TYPE SET TO " + myConfigModel.ConfigurationValue + "*******"));
             myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* PROGRAM RUN TYPE SET TO " + myConfigModel.ConfigurationValue + "*******"));
 
-            //this is the DEV account login
-            var interfax = new FaxClient(username: myCurrentUsername, password: myCurrentPassword);
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Initiating new Fax Client for user: " + myCurrentUsername));
-            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Initiating new Fax Client for user: " + myCurrentUsername));
-
             try
             {
 
@@ -148,7 +143,7 @@ namespace SendFaxConsole
                         //send the email
                         Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
                         myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
-                        myEmailSuccess = SendFaxConsole.SendMail.SendExchangeMail(faxRequest.Client_Email, faxRequest.Fax_File_Location, myGmailUsername, myGmailPassword, myGmailFromAddress);
+                        myEmailSuccess = SendFaxConsole.SendMail.SendExchangeMail(faxRequest.Client_Email, faxRequest.Fax_File_Location, myGmailUsername, myGmailPassword, myGmailFromAddress, faxRequest.Fax_File_Location);
 
                         //log the event
                         Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing email record for address " + faxRequest.Client_Email));
@@ -248,6 +243,11 @@ namespace SendFaxConsole
                     else //this means that the runtype is either fax or both
                     {
 
+                        //this is the DEV account login
+                        var interfax = new FaxClient(username: myCurrentUsername, password: myCurrentPassword);
+                        Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Initiating new Fax Client for user: " + myCurrentUsername));
+                        myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Initiating new Fax Client for user: " + myCurrentUsername));
+
                         //log the event
                         Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing Fax records " + currentRecordNumber + " of " + totalCount));
                         myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing Fax records " + currentRecordNumber + " of " + totalCount));
@@ -269,7 +269,7 @@ namespace SendFaxConsole
                             //send the email
                             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
                             myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
-                            myEmailSuccess = SendFaxConsole.SendMail.SendExchangeMail(faxRequest.Client_Email, faxRequest.Fax_File_Location, myGmailUsername, myGmailPassword, myGmailFromAddress);
+                            myEmailSuccess = SendFaxConsole.SendMail.SendExchangeMail(faxRequest.Client_Email, faxRequest.Fax_File_Location, myGmailUsername, myGmailPassword, myGmailFromAddress, faxRequest.Fax_File_Location);
 
 
                             if (myEmailSuccess == "success") //Successful email

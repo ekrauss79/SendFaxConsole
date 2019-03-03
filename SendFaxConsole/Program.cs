@@ -36,14 +36,14 @@ namespace SendFaxConsole
         public static void Main(string[] args)
         {
 
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("****************************************"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*                                      *"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("* Welcome to the Fax Automation System *"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*                                      *"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*   Refer to C:\\Temp\\FaxLog.txt for  *"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*           log information            *"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*                                      *"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("****************************************"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("**********************************************"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*                                            *"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("* Welcome to the Fax/Email Automation System *"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*                                            *"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*   Refer to C:\\Temp\\FaxLog.txt for        *"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*           log information                  *"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*                                            *"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("**********************************************"));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(""));
 
             SendFaxAsync2().Wait();
@@ -151,8 +151,16 @@ namespace SendFaxConsole
                             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing email record for address " + faxRequest.Client_Email));
                             myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing email record for address " + faxRequest.Client_Email));
 
-                            //increment the record number
-                            currentRecordNumber++;
+                        }
+                        else
+                        {
+                            myEmailSuccess = "failure";
+                            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("No Email found for " + faxRequest.Client_Name + ".  No email will be sent."));
+                            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("No Email found for " + faxRequest.Client_Name + ".  No email will be sent."));
+                        }
+
+                        //increment the record number
+                        currentRecordNumber++;
 
                             if (myEmailSuccess == "success") //Successful email
                             {
@@ -203,8 +211,8 @@ namespace SendFaxConsole
                             else //Failure
                             {
                                 //log the event
-                                Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Email + " Failed"));
-                                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Email + " Failed"));
+                                Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Name + " Failed"));
+                                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Name + " Failed"));
 
                                 //update the record in the model to success
                                 faxRequest.Fax_Status = "failure";
@@ -222,8 +230,8 @@ namespace SendFaxConsole
                                     if (myEmailResult == "success")
                                     {
                                         //log the event
-                                        Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Email + " failed to send."));
-                                        myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Email + " failed to send."));
+                                        Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Name + " failed to send."));
+                                        myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Name + " failed to send."));
                                     }
                                     else
                                     {
@@ -244,13 +252,6 @@ namespace SendFaxConsole
                                 myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage($"Error: " + myEmailSuccess));
                                 Debug.WriteLine($"Error: " + myEmailSuccess);
                             }
-
-                        }
-                        else
-                        {
-                            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("No Email found for  " + faxRequest.Client_Name + ".  No email will be sent."));
-                            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("No Email found for  " + faxRequest.Client_Name + ".  No email will be sent."));
-                        }
 
                     }
                     else //this means that the runtype is either fax or both
@@ -287,8 +288,15 @@ namespace SendFaxConsole
                                 myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
                                 myEmailSuccess = SendFaxConsole.SendMail.SendExchangeMail(faxRequest.Client_Email, faxRequest.Fax_File_Location, myGmailUsername, myGmailPassword, myGmailFromAddress, faxRequest.Fax_File_Location);
 
+                            }
+                            else
+                            {
+                                myEmailSuccess = "failure";
+                                Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("No Email found for " + faxRequest.Client_Name + ".  No email will be sent."));
+                                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("No Email found for " + faxRequest.Client_Name + ".  No email will be sent."));
+                            }
 
-                                if (myEmailSuccess == "success") //Successful email
+                            if (myEmailSuccess == "success") //Successful email
                                 {
 
                                     Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing..."));
@@ -375,16 +383,7 @@ namespace SendFaxConsole
                                     //log the event
                                     myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage($"Error: " + myEmailSuccess));
                                     Debug.WriteLine($"Error: " + myEmailSuccess);
-                                    break;
                                 }
-
-                            }
-                            else
-                            {
-                                Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("No Email found for  " + faxRequest.Client_Name + ".  No email will be sent."));
-                                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("No Email found for  " + faxRequest.Client_Name + ".  No email will be sent."));
-                            }
-
                         }
 
                         //log the event
@@ -502,6 +501,8 @@ namespace SendFaxConsole
 
                     }
                 }
+                Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Program Run Complete."));
+                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Program Run Complete."));
 
                 //close the stream
                 myLog.Close();

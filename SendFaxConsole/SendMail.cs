@@ -40,7 +40,7 @@ namespace SendFaxConsole
                 MailMessage message = new MailMessage();
                 MailAddress fromAddress = new MailAddress(gmailFromAddress);
                 message.From = fromAddress;
-                message.Subject = "This is the Subject";
+                message.Subject = "Pro Pharma Monthly FWA Report";
                 message.Body = "This is the body";
                 message.To.Add(clientEmailAddress);
                 message.BodyEncoding = UTF8Encoding.UTF8;

@@ -235,7 +235,7 @@ namespace SendFaxConsole.Data
                     {
                         ClientID = faxRequester.ClientID,
                         FaxRequestID = faxRequester.FaxRequestID,
-                        Client_Name = faxRecipients.Client_Contact_Name,
+                        Client_Name = faxRecipients.Client_Name,
                         Client_Fax_Number = faxRecipients.Client_Fax_Number,
                         Fax_File_Location = faxRequester.Fax_File_Location,
                         Date_Requested = faxRequester.Date_Requested,

@@ -41,7 +41,7 @@ namespace SendFaxConsole
                 MailAddress fromAddress = new MailAddress(gmailFromAddress);
                 message.From = fromAddress;
                 message.Subject = "Pro Pharma Monthly FWA Report";
-                message.Body = "This is the body";
+                message.Body = HelperClasses.StringPropertyHelper.getMonthlyEmailBody();
                 message.To.Add(clientEmailAddress);
                 message.BodyEncoding = UTF8Encoding.UTF8;
                 message.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;

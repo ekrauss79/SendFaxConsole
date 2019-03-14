@@ -42,7 +42,7 @@ namespace SendFaxConsole
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*                                            *"));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*   Refer to C:\\Temp\\FaxLog.txt for        *"));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*           log information                  *"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*                                            *"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*               v1.2.0                       *"));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("**********************************************"));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(""));
 
@@ -115,6 +115,11 @@ namespace SendFaxConsole
 
             try
             {
+
+                //this is the DEV account login
+                var interfax = new FaxClient(username: myCurrentUsername, password: myCurrentPassword);
+                Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Initiating new Fax Client for user: " + myCurrentUsername));
+                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Initiating new Fax Client for user: " + myCurrentUsername));
 
                 //log the event
                 Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Requesting dataset for Fax Requests"));
@@ -257,11 +262,6 @@ namespace SendFaxConsole
                     else //this means that the runtype is either fax or both
                     {
 
-                        //this is the DEV account login
-                        var interfax = new FaxClient(username: myCurrentUsername, password: myCurrentPassword);
-                        Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Initiating new Fax Client for user: " + myCurrentUsername));
-                        myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Initiating new Fax Client for user: " + myCurrentUsername));
-
                         //log the event
                         Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing Fax records " + currentRecordNumber + " of " + totalCount));
                         myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing Fax records " + currentRecordNumber + " of " + totalCount));
@@ -343,8 +343,8 @@ namespace SendFaxConsole
                                 else //Failure
                                 {
                                     //log the event
-                                    Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Email + " Failed"));
-                                    myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Email + " Failed"));
+                                    Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Name + " Failed"));
+                                    myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Name + " Failed"));
 
                                     //update the record in the model to success
                                     faxRequest.Fax_Status = "failure";
@@ -362,8 +362,8 @@ namespace SendFaxConsole
                                         if (myEmailResult == "success")
                                         {
                                             //log the event
-                                            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " failed to send."));
-                                            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Fax for number " + faxRequest.Client_Fax_Number + " failed to send."));
+                                            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Name + " failed to send."));
+                                            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Email for Address " + faxRequest.Client_Name + " failed to send."));
                                         }
                                         else
                                         {

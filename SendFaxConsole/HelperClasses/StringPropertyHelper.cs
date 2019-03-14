@@ -110,6 +110,38 @@ namespace SendFaxConsole.HelperClasses
             return outString;
         }
 
+        public static String getMonthlyEmailBody()
+        {
+
+            String outString = "";
+
+            outString = "RE: NEW WASTE AND ABUSE PREVENTION PROGRAM  \n \n \n " +
+                         "L.A. Care Health Plan (L.A. Care) is initiating a waste and abuse prevention program.  The \n" +
+                         "program will commence on January 1, 2019.  Currently, Navitus Health Solutions, the PBM for \n" +
+                         "L.A. Care, screens claims at point of sale.  This new program adds a further prevention action \n" +
+                         "based on historical and current claims to identify potential waste and abuse actions. \n \n" +
+                         "This program was developed to identify provider pharmacies that are both variant and \n" +
+                         "statistically inconsistent with industry practices. The program does not identify provider \n" +
+                         "pharmacies who perform appropriate actions. \n \n" +
+                         "Pharmacies will receive monthly reports identifying variance from similar practices for \n" +
+                         "geography, pharmacy channel, patient severity, and medication category types.  These reports \n " +
+                         "will also provide recommendations for change that can be implemented to reduce the potential \n " +
+                         "or waste and abuse.  In addition, quarterly reports will compare results to local and industry \n " +
+                         "averages with recommendations for potential changes. \n \n " +
+                         "We appreciate your consideration and assistance in helping minimize any waste and abuse \n " +
+                         "concerns.  This program should be helpful in identifying and operationalizing changes that \n " +
+                         "enhance your practice and help you to confirm good prescribing and dispensing practices.  \n \n " +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
+                         "by fax at213-438-5776. \n \n " +
+                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
+                         "Sincerely, \n \n " +
+                         "Pharmacy & Formulary Department  \n " +
+                         "L.A. Care Health Plan"; 
+
+            return outString;
+        }
+
+
         public static string GenerateRandomString(int length, String allowedChars)
         {
             if (length < 0) throw new ArgumentOutOfRangeException("length", "length cannot be less than zero.");

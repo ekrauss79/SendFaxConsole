@@ -110,12 +110,13 @@ namespace SendFaxConsole.HelperClasses
             return outString;
         }
 
-        public static String getMonthlyEmailBody()
+        public static String getMonthlyEmailBody(string clientName)
         {
 
             String outString = "";
 
-            outString = "RE: NEW WASTE AND ABUSE PREVENTION PROGRAM  \n \n \n " +
+            outString = " Dear " + clientName + "  \n \n " + 
+                         "RE: NEW WASTE AND ABUSE PREVENTION PROGRAM  \n \n \n " +
                          "L.A. Care Health Plan (L.A. Care) is initiating a waste and abuse prevention program.  The \n" +
                          "program will commence on January 1, 2019.  Currently, Navitus Health Solutions, the PBM for \n" +
                          "L.A. Care, screens claims at point of sale.  This new program adds a further prevention action \n" +

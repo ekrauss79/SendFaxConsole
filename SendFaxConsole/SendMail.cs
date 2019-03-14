@@ -23,10 +23,25 @@ namespace SendFaxConsole
     {
         // Create a new Exchange service object
 
-        public static string SendExchangeMail(string clientEmailAddress, string fileLocation, string gmailUserNamne, string gmailPassword, string gmailFromAddress, string attachmentFilename)
+        public static string SendExchangeMail(string clientEmailAddress, string fileLocation, string gmailUserNamne, string gmailPassword, string gmailFromAddress, string attachmentFilename, string clientName, string bodyType)
         {
             try
             {
+
+                string emailBody = "";
+
+                if (bodyType.ToLower() == "monthly")
+                {
+                    emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody(clientName);
+                } else if (bodyType.ToLower() == "weekly")
+                {
+                    emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody(clientName);
+                }
+                else
+                {
+                    emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody(clientName);
+                }
+
                 // Command line argument must the the SMTP host.
                 SmtpClient client = new SmtpClient();
                 client.Port = 587;
@@ -40,8 +55,8 @@ namespace SendFaxConsole
                 MailMessage message = new MailMessage();
                 MailAddress fromAddress = new MailAddress(gmailFromAddress);
                 message.From = fromAddress;
-                message.Subject = "Pro Pharma Monthly FWA Report";
-                message.Body = HelperClasses.StringPropertyHelper.getMonthlyEmailBody();
+                message.Subject = "LA Care Waste & Abuse Peer-to-Peer Report";
+                message.Body = emailBody;
                 message.To.Add(clientEmailAddress);
                 message.BodyEncoding = UTF8Encoding.UTF8;
                 message.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;

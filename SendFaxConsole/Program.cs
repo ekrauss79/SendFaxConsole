@@ -107,11 +107,18 @@ namespace SendFaxConsole
             }
 
             //get the program run type configuration
-            ConfigurationModel myConfigModel = new ConfigurationModel();
-            myConfigModel = DataProvider.Instance.GetRunTypeConfiguration();
+            ConfigurationModel myConfigRunTypeModel = new ConfigurationModel();
+            myConfigRunTypeModel = DataProvider.Instance.GetRunTypeConfiguration();
 
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* PROGRAM RUN TYPE SET TO " + myConfigModel.ConfigurationValue + "*******"));
-            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* PROGRAM RUN TYPE SET TO " + myConfigModel.ConfigurationValue + "*******"));
+            //get the program run type configuration
+            ConfigurationModel myConfigReportTypeModel = new ConfigurationModel();
+            myConfigReportTypeModel = DataProvider.Instance.GetReportTypeConfiguration();
+
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* PROGRAM RUN TYPE SET TO " + myConfigRunTypeModel.ConfigurationValue + "*******"));
+            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* PROGRAM RUN TYPE SET TO " + myConfigRunTypeModel.ConfigurationValue + "*******"));
+
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* PROGRAM REPORT TYPE SET TO " + myConfigReportTypeModel.ConfigurationValue + "*******"));
+            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* PROGRAM REPORT TYPE SET TO " + myConfigReportTypeModel.ConfigurationValue + "*******"));
 
             try
             {
@@ -139,7 +146,7 @@ namespace SendFaxConsole
                 //loop through the the entire resultset
                 foreach (var faxRequest in myModel)
                 {
-                    if (myConfigModel.ConfigurationValue == "email")
+                    if (myConfigRunTypeModel.ConfigurationValue.ToLower() == "email")
                     {
                         if (!String.IsNullOrEmpty(faxRequest.Client_Email))
                         {
@@ -150,7 +157,7 @@ namespace SendFaxConsole
                             //send the email
                             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
                             myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
-                            myEmailSuccess = SendFaxConsole.SendMail.SendExchangeMail(faxRequest.Client_Email, faxRequest.Fax_File_Location, myGmailUsername, myGmailPassword, myGmailFromAddress, faxRequest.Fax_File_Location);
+                            myEmailSuccess = SendFaxConsole.SendMail.SendExchangeMail(faxRequest.Client_Email, faxRequest.Fax_File_Location, myGmailUsername, myGmailPassword, myGmailFromAddress, faxRequest.Fax_File_Location, faxRequest.Client_Name, myConfigReportTypeModel.ConfigurationValue);
 
                             //log the event
                             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing email record for address " + faxRequest.Client_Email));
@@ -278,7 +285,7 @@ namespace SendFaxConsole
                                     }
                         );
 
-                        if (myConfigModel.ConfigurationValue == "both")
+                        if (myConfigRunTypeModel.ConfigurationValue.ToLower() == "both")
                         {
 
                             if (!String.IsNullOrEmpty(faxRequest.Client_Email))
@@ -286,7 +293,7 @@ namespace SendFaxConsole
                                 //send the email
                                 Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
                                 myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
-                                myEmailSuccess = SendFaxConsole.SendMail.SendExchangeMail(faxRequest.Client_Email, faxRequest.Fax_File_Location, myGmailUsername, myGmailPassword, myGmailFromAddress, faxRequest.Fax_File_Location);
+                                myEmailSuccess = SendFaxConsole.SendMail.SendExchangeMail(faxRequest.Client_Email, faxRequest.Fax_File_Location, myGmailUsername, myGmailPassword, myGmailFromAddress, faxRequest.Fax_File_Location, faxRequest.Client_Name, myConfigReportTypeModel.ConfigurationValue);
 
                             }
                             else

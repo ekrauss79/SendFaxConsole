@@ -254,6 +254,18 @@ namespace SendFaxConsole.Data
                     }).FirstOrDefault();
         }
 
+        public ConfigurationModel GetReportTypeConfiguration()
+        {
+
+            return (from configuration in DataContext.tblConfigurations
+                    where configuration.ConfigurationType == "reporttype"
+                    select new ConfigurationModel
+                    {
+                        ConfigurationValue = configuration.ConfigurationValue
+                    }).FirstOrDefault();
+        }
+
+
 
         /*
         public FundraisingModel GetFundraisingCampaign(int userID, int fundraisingID)

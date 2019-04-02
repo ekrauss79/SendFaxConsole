@@ -115,7 +115,7 @@ namespace SendFaxConsole.HelperClasses
 
             String outString = "";
 
-            outString = " Dear " + clientName + "  \n \n " + 
+            outString = " Dear " + clientName + "  \n \n \n " + 
                          "RE: NEW WASTE AND ABUSE PREVENTION PROGRAM  \n \n \n " +
                          "L.A. Care Health Plan (L.A. Care) is initiating a waste and abuse prevention program.  The \n" +
                          "program will commence on January 1, 2019.  Currently, Navitus Health Solutions, the PBM for \n" +

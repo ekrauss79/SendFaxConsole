@@ -218,19 +218,48 @@ namespace SendFaxConsole.Data
             return returnVal;
 
         }
-         
+
         #endregion
 
         #region [ GET Method Definitions ]
 
         #region [ DAO Abstraction Method - Modified: Need Testing ]
-        
-        public List<FaxRequestQueryModel> GetFaxRequest()
+
+        public List<FaxRequestQueryModel> GetNumberOfRequests()
         {
+
+            return (from faxRequester in DataContext.tblFaxRequestMasters
+                    where (faxRequester.Date_Requested != null)
+                    select new FaxRequestQueryModel
+                    {
+                        ClientID = faxRequester.ClientID,
+                    }).ToList();
+        }
+
+        public FaxRequestQueryModel GetFaxRequest()
+        {
+
+            //grab the latest record
+            var MaxClientID = (from faxMaxRequester in DataContext.tblFaxRequestMasters
+                               where (faxMaxRequester.Date_Requested != null)
+                               select faxMaxRequester.ClientID).Max();
+
+            //lock the row for update
+            var updateRow = (from m in DataContext.tblFaxRequestMasters
+                             where m.ClientID == MaxClientID
+                             select m).SingleOrDefault();
+
+            //update the record with the current date
+            if (updateRow != null)
+            {
+                updateRow.Date_Requested = DateTime.Now;
+                DataContext.SaveChanges();
+            }
 
             return (from faxRequester in DataContext.tblFaxRequestMasters
                     join faxRecipients in DataContext.tblFaxRecipientMasters
                        on faxRequester.ClientID equals faxRecipients.ClientID
+                    where (faxRequester.ClientID == MaxClientID)
                     select new FaxRequestQueryModel
                     {
                         ClientID = faxRequester.ClientID,
@@ -240,7 +269,7 @@ namespace SendFaxConsole.Data
                         Fax_File_Location = faxRequester.Fax_File_Location,
                         Date_Requested = faxRequester.Date_Requested,
                         Client_Email = faxRecipients.Client_Email
-                    }).ToList();
+                    }).FirstOrDefault();
         }
 
         public ConfigurationModel GetRunTypeConfiguration()

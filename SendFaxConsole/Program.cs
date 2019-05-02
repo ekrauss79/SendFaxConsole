@@ -27,6 +27,9 @@ using SendFaxConsole;
  * 1/17/2019 - You need to now test with it released on your system
  * and then install it internally on Bens system
  * 
+ * 5/1/2019 - Making a change to the way I loop through an RS to pull
+ * the latest available record
+ * 
  * *****************************************************************/
 
 namespace SendFaxConsole
@@ -62,7 +65,7 @@ namespace SendFaxConsole
             string myGmailPassword = System.Configuration.ConfigurationSettings.AppSettings["GmailPassword"];
             string myGmailFromAddress = System.Configuration.ConfigurationSettings.AppSettings["GmailFromAddress"];
             string myGmailWaitTime = System.Configuration.ConfigurationSettings.AppSettings["GmailWaitTime"];
-            string myFaxWaitTime = System.Configuration.ConfigurationSettings.AppSettings["FaxWaitTime"]; ;
+            string myFaxWaitTime = System.Configuration.ConfigurationSettings.AppSettings["FaxWaitTime"]; 
             string myCurrentUsername = "";
             string myCurrentPassword = "";
             string myEmailSuccess = "";
@@ -132,16 +135,29 @@ namespace SendFaxConsole
                 Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Requesting dataset for Fax Requests"));
                 myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Requesting dataset for Fax Requests"));
 
-                //get the data
-                List<FaxRequestQueryModel> myModel = new List<FaxRequestQueryModel>();
-                myModel = DataProvider.Instance.GetFaxRequest();
+                //get the number of fax requests
+                List<FaxRequestQueryModel> myCounterModel = new List<FaxRequestQueryModel>();
+                myCounterModel = DataProvider.Instance.GetNumberOfRequests();
 
                 //get the total count for use in the loop
-                totalCount = myModel.Count();
+                totalCount = myCounterModel.Count();
 
                 //log the event
                 Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Dataset retrieved.  There are " + totalCount + " record(s)."));
                 myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Dataset retrieved.  There are " + totalCount + " record(s)."));
+
+                if (totalCount != 0)
+                {
+                    while (currentRecordNumber <= totalCount)
+                    {
+
+                        //get the number of fax requests
+                        FaxRequestQueryModel myModel = new FaxRequestQueryModel();
+                        myModel = DataProvider.Instance.GetFaxRequest();
+
+                    }
+                }
+
 
                 //loop through the the entire resultset
                 foreach (var faxRequest in myModel)

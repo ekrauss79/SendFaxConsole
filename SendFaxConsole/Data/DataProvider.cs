@@ -244,7 +244,7 @@ namespace SendFaxConsole.Data
 
                 //grab the latest record
                 var MaxClientID = (from faxMaxRequester in DataContext.tblFaxRequestMasters
-                                   where (faxMaxRequester.Date_Requested != null)
+                                   where (faxMaxRequester.Date_Last_Sent != null)
                                    select faxMaxRequester.FaxRequestID).Max();
 
                 //lock the row for update
@@ -255,7 +255,7 @@ namespace SendFaxConsole.Data
                 //update the record with the current date
                 if (updateRow != null)
                 {
-                    updateRow.Date_Requested = DateTime.Now;
+                    updateRow.Date_Last_Sent = DateTime.Now;
                     DataContext.SaveChanges();
                 }
 

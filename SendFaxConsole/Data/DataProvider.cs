@@ -239,37 +239,45 @@ namespace SendFaxConsole.Data
         public FaxRequestQueryModel GetFaxRequest()
         {
 
-            //grab the latest record
-            var MaxClientID = (from faxMaxRequester in DataContext.tblFaxRequestMasters
-                               where (faxMaxRequester.Date_Requested != null)
-                               select faxMaxRequester.ClientID).Max();
-
-            //lock the row for update
-            var updateRow = (from m in DataContext.tblFaxRequestMasters
-                             where m.ClientID == MaxClientID
-                             select m).SingleOrDefault();
-
-            //update the record with the current date
-            if (updateRow != null)
+            try
             {
-                updateRow.Date_Requested = DateTime.Now;
-                DataContext.SaveChanges();
-            }
 
-            return (from faxRequester in DataContext.tblFaxRequestMasters
-                    join faxRecipients in DataContext.tblFaxRecipientMasters
-                       on faxRequester.ClientID equals faxRecipients.ClientID
-                    where (faxRequester.ClientID == MaxClientID)
-                    select new FaxRequestQueryModel
-                    {
-                        ClientID = faxRequester.ClientID,
-                        FaxRequestID = faxRequester.FaxRequestID,
-                        Client_Name = faxRecipients.Client_Name,
-                        Client_Fax_Number = faxRecipients.Client_Fax_Number,
-                        Fax_File_Location = faxRequester.Fax_File_Location,
-                        Date_Requested = faxRequester.Date_Requested,
-                        Client_Email = faxRecipients.Client_Email
-                    }).FirstOrDefault();
+                //grab the latest record
+                var MaxClientID = (from faxMaxRequester in DataContext.tblFaxRequestMasters
+                                   where (faxMaxRequester.Date_Requested != null)
+                                   select faxMaxRequester.ClientID).Max();
+
+                //lock the row for update
+                var updateRow = (from m in DataContext.tblFaxRequestMasters
+                                 where m.ClientID == MaxClientID
+                                 select m).SingleOrDefault();
+
+                //update the record with the current date
+                if (updateRow != null)
+                {
+                    updateRow.Date_Requested = DateTime.Now;
+                    DataContext.SaveChanges();
+                }
+
+                return (from faxRequester in DataContext.tblFaxRequestMasters
+                        join faxRecipients in DataContext.tblFaxRecipientMasters
+                           on faxRequester.ClientID equals faxRecipients.ClientID
+                        where (faxRequester.ClientID == MaxClientID)
+                        select new FaxRequestQueryModel
+                        {
+                            ClientID = faxRequester.ClientID,
+                            FaxRequestID = faxRequester.FaxRequestID,
+                            Client_Name = faxRecipients.Client_Name,
+                            Client_Fax_Number = faxRecipients.Client_Fax_Number,
+                            Fax_File_Location = faxRequester.Fax_File_Location,
+                            Date_Requested = faxRequester.Date_Requested,
+                            Client_Email = faxRecipients.Client_Email
+                        }).FirstOrDefault();
+
+            }
+            catch (Exception e) {
+                return null;
+            }
         }
 
         public ConfigurationModel GetRunTypeConfiguration()

@@ -146,18 +146,39 @@ namespace SendFaxConsole
                 Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Dataset retrieved.  There are " + totalCount + " record(s)."));
                 myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Dataset retrieved.  There are " + totalCount + " record(s)."));
 
+
+                /**********************************
+                 * 
+                 * This is new coding and i am testing
+                 * 
+                 * 
+                 * *********************************/
+
                 if (totalCount != 0)
                 {
                     while (currentRecordNumber <= totalCount)
                     {
 
                         //get the number of fax requests
-                        FaxRequestQueryModel myModel = new FaxRequestQueryModel();
-                        myModel = DataProvider.Instance.GetFaxRequest();
+                        FaxRequestQueryModel myTestModel = new FaxRequestQueryModel();
+                        myTestModel = DataProvider.Instance.GetFaxRequest();
+                        //log the event
+                        Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Got the dataset "));
+                        myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Got the dataset"));
+
+                        currentRecordNumber++;
 
                     }
                 }
 
+                /**********************************
+                 * 
+                 * This is new coding and i am testing
+                 * 
+                 * 
+                 * *********************************/
+
+                List<FaxRequestQueryModel> myModel = new List<FaxRequestQueryModel>();
 
                 //loop through the the entire resultset
                 foreach (var faxRequest in myModel)

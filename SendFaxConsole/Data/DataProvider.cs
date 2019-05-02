@@ -245,7 +245,7 @@ namespace SendFaxConsole.Data
                 //grab the latest record
                 var MaxClientID = (from faxMaxRequester in DataContext.tblFaxRequestMasters
                                    where (faxMaxRequester.Date_Requested != null)
-                                   select faxMaxRequester.ClientID).Max();
+                                   select faxMaxRequester.FaxRequestID).Max();
 
                 //lock the row for update
                 var updateRow = (from m in DataContext.tblFaxRequestMasters

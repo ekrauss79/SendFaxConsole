@@ -229,7 +229,7 @@ namespace SendFaxConsole.Data
         {
 
             return (from faxRequester in DataContext.tblFaxRequestMasters
-                    where (faxRequester.Date_Requested != null)
+                    where (faxRequester.Date_Last_Sent != null)
                     select new FaxRequestQueryModel
                     {
                         ClientID = faxRequester.ClientID,

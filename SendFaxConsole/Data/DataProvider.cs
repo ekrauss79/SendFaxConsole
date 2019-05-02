@@ -243,13 +243,13 @@ namespace SendFaxConsole.Data
             {
 
                 //grab the latest record
-                var MaxClientID = (from faxMaxRequester in DataContext.tblFaxRequestMasters
-                                   where (faxMaxRequester.Date_Last_Sent != null)
+                var MaxFaxRequestID = (from faxMaxRequester in DataContext.tblFaxRequestMasters
+                                   where (faxMaxRequester.Date_Last_Sent == null)
                                    select faxMaxRequester.FaxRequestID).Max();
 
                 //lock the row for update
                 var updateRow = (from m in DataContext.tblFaxRequestMasters
-                                 where m.ClientID == MaxClientID
+                                 where m.FaxRequestID == MaxFaxRequestID
                                  select m).SingleOrDefault();
 
                 //update the record with the current date
@@ -262,7 +262,7 @@ namespace SendFaxConsole.Data
                 return (from faxRequester in DataContext.tblFaxRequestMasters
                         join faxRecipients in DataContext.tblFaxRecipientMasters
                            on faxRequester.ClientID equals faxRecipients.ClientID
-                        where (faxRequester.ClientID == MaxClientID)
+                        where (faxRequester.FaxRequestID == MaxFaxRequestID)
                         select new FaxRequestQueryModel
                         {
                             ClientID = faxRequester.ClientID,

@@ -43,9 +43,9 @@ namespace SendFaxConsole
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*                                            *"));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("* Welcome to the Fax/Email Automation System *"));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*                                            *"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*   Refer to C:\\Temp\\FaxLog.txt for        *"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*   Refer to C:\\Temp\\FaxLog + DateTime.txt *"));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*           log information                  *"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*               v1.3.1                       *"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*               v2.0.0                       *"));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("**********************************************"));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(""));
 
@@ -71,18 +71,20 @@ namespace SendFaxConsole
             string myEmailSuccess = "";
             string myRunTYpe = "";
             string myEmailResult = "";
-
+            string myLogName = "";
 
             //create the log file
             StreamWriter myLog;
 
-            if (!File.Exists("C:\\temp\\faxlog.txt"))
+            myLogName = "faxlog" + DateTime.Now + ".txt";
+
+            if (!File.Exists("C:\\temp\\" + myLogName))
             {
-                myLog = new StreamWriter("C:\\temp\\faxlog.txt");
+                myLog = new StreamWriter("C:\\temp\\" + myLogName);
             }
             else
             {
-                myLog = File.AppendText("C:\\temp\\faxlog.txt");
+                myLog = File.AppendText("C:\\temp\\" + myLogName);
             }
 
             //log the event
@@ -146,13 +148,17 @@ namespace SendFaxConsole
                 Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Dataset retrieved.  There are " + totalCount + " record(s)."));
                 myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Dataset retrieved.  There are " + totalCount + " record(s)."));
 
+                /****************************************************
+                 * 
+                 * 
+                 * 
+                 *  This is where the main loop starts
+                 * 
+                 * 
+                 * 
+                 * 
+                 * **************************************************/
 
-                /**********************************
-                 * 
-                 * This is new coding and i am testing
-                 * This Works
-                 * 
-                 * *********************************/
 
                 if (totalCount != 0)
                 {
@@ -533,32 +539,6 @@ namespace SendFaxConsole
                         }
                     }
                 }
-
-
-                /**********************************
-                 * 
-                 * This is new coding and i am testing
-                 * This Works
-                 * 
-                 * *********************************/
-
-                //List<FaxRequestQueryModel> myModel = new List<FaxRequestQueryModel>();
-
-                //loop through the the entire resultset
-                //foreach (var faxRequest in myModel)
-                //{
-               //}
-
-                /************************************************
-                 * 
-                 * 
-                 * 
-                 *   This is the end of the loop
-                 * 
-                 * 
-                 * 
-                 * *******************************************/
-
 
                 Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Program Run Complete."));
                 myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Program Run Complete."));

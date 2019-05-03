@@ -72,11 +72,15 @@ namespace SendFaxConsole
             string myRunTYpe = "";
             string myEmailResult = "";
             string myLogName = "";
+            int myRandomInt = 0;
 
             //create the log file
             StreamWriter myLog;
 
-            myLogName = "faxlog" + DateTime.Now + ".txt";
+            Random myRandom = new Random();
+            myRandomInt = myRandom.Next(0, 1000000);
+
+            myLogName = "faxlog" + myRandomInt.ToString() + ".txt";
 
             if (!File.Exists("C:\\temp\\" + myLogName))
             {

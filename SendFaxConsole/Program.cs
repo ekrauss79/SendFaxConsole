@@ -38,17 +38,6 @@ namespace SendFaxConsole
     {
         public static void Main(string[] args)
         {
-
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("**********************************************"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*                                            *"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("* Welcome to the Fax/Email Automation System *"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*                                            *"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*   Refer to C:\\Temp\\FaxLog + DateTime.txt *"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*           log information                  *"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*               v2.0.0                       *"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("**********************************************"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(""));
-
             SendFaxAsync2().Wait();
         }
 
@@ -90,6 +79,16 @@ namespace SendFaxConsole
             {
                 myLog = File.AppendText("C:\\temp\\" + myLogName);
             }
+
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("**********************************************"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*                                            *"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("* Welcome to the Fax/Email Automation System *"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*                                            *"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*   Refer to C:\\Temp\\" + myLogName));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*           log information                  *"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*               v2.0.2                       *"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("**********************************************"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(""));
 
             //log the event
             myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("////-------------FAX PROCESS INITIATED------------\\\\"));
@@ -167,12 +166,29 @@ namespace SendFaxConsole
                 if (totalCount != 0)
                 {
                     //loop through the resultset
-                    while (currentRecordNumber <= totalCount)
+                    while (totalCount > 0)
                     {
+
+
+                        //get the number of fax requests
+                        List<FaxRequestQueryModel> myInternalCounterModel = new List<FaxRequestQueryModel>();
+                        myInternalCounterModel = DataProvider.Instance.GetNumberOfRequests();
+
+                        //get the total count for use in the loop
+                        totalCount = myInternalCounterModel.Count();
 
                         //get the number of fax requests
                         FaxRequestQueryModel faxRequest = new FaxRequestQueryModel();
-                        faxRequest = DataProvider.Instance.GetFaxRequest();
+
+                        //if there are no more faxes to send because the other programs picked them up, do not let the program process any further
+                        if (totalCount == 0)
+                        {
+                            faxRequest.FaxRequestID = 0;
+                        }
+                        else
+                        {
+                            faxRequest = DataProvider.Instance.GetFaxRequest();
+                        }
 
                         //make sure that there is something in the faxRequest
                         if (faxRequest.FaxRequestID != 0)
@@ -186,8 +202,8 @@ namespace SendFaxConsole
                                 if (!String.IsNullOrEmpty(faxRequest.Client_Email))
                                 {
                                     //log the event
-                                    Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing email records " + currentRecordNumber + " of " + totalCount));
-                                    myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing email records " + currentRecordNumber + " of " + totalCount));
+                                    Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("There are " + totalCount + " email records left to process"));
+                                    myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("There are " + totalCount + " email records left to process"));
 
                                     //send the email
                                     Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
@@ -305,8 +321,8 @@ namespace SendFaxConsole
                             {
 
                                 //log the event
-                                Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing Fax records " + currentRecordNumber + " of " + totalCount));
-                                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing Fax records " + currentRecordNumber + " of " + totalCount));
+                                Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("There are " + totalCount + " fax records left to process"));
+                                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("There are " + totalCount + " fax records left to process"));
 
                                 //Send the fax with options
                                 var faxId = await interfax.Outbound.SendFax(

@@ -262,7 +262,7 @@ namespace SendFaxConsole.Data
                 return (from faxRequester in DataContext.tblFaxRequestMasters
                         join faxRecipients in DataContext.tblFaxRecipientMasters
                            on faxRequester.ClientID equals faxRecipients.ClientID
-                        where (faxRequester.ClientID == MaxFaxRequestID)
+                        where (faxRequester.FaxRequestID == MaxFaxRequestID)
                         select new FaxRequestQueryModel
                         {
                             ClientID = faxRequester.ClientID,

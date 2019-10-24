@@ -109,8 +109,8 @@ namespace SendFaxConsole.HelperClasses
 
             return outString;
         }
-
-        public static String getMonthlyEmailBody(string clientName)
+        //this is the old original message...depricated on 10/23/2019
+        public static String getMonthlyEmailBody_old(string clientName)
         {
 
             String outString = "";
@@ -141,6 +141,29 @@ namespace SendFaxConsole.HelperClasses
 
             return outString;
         }
+
+        public static String getMonthlyEmailBody(string clientName)
+        {
+
+            String outString = "";
+
+            outString = " Dear " + clientName + "  \n \n \n " +
+                         "RE: NEW WASTE AND ABUSE PREVENTION PROGRAM  \n \n \n " +
+                         "As a Health Plan LA Care is charged with exhaustive analyses and changes to Waste & Abuse. \n" +
+                         "The Recommendations in this report are crucial for you to adopt and become part of your \n" +
+                         "normal procedures.  Waste & Abuse take away from quality and optimal clinical results.  \n " +
+                         "Your peers have the same issues as you do, but they have been able to see improvement.  We look \n " +
+                         "forward to your improvements in the next few months. \n \n " +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
+                         "by fax at213-438-5776. \n \n " +
+                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
+                         "Sincerely, \n \n " +
+                         "Pharmacy & Formulary Department  \n " +
+                         "L.A. Care Health Plan";
+
+            return outString;
+        }
+
 
 
         public static string GenerateRandomString(int length, String allowedChars)

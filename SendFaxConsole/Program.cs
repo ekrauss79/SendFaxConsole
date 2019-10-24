@@ -86,7 +86,7 @@ namespace SendFaxConsole
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*                                            *"));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*   Refer to C:\\Temp\\" + myLogName));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*           log information                  *"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*               v2.0.2                       *"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*               v2.1.2                       *"));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("**********************************************"));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(""));
 
@@ -114,19 +114,36 @@ namespace SendFaxConsole
                 myCurrentPassword = myDEVPassword;
             }
 
+
             //get the program run type configuration
             ConfigurationModel myConfigRunTypeModel = new ConfigurationModel();
-            myConfigRunTypeModel = DataProvider.Instance.GetRunTypeConfiguration();
-
-            //get the program run type configuration
             ConfigurationModel myConfigReportTypeModel = new ConfigurationModel();
-            myConfigReportTypeModel = DataProvider.Instance.GetReportTypeConfiguration();
 
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* PROGRAM RUN TYPE SET TO " + myConfigRunTypeModel.ConfigurationValue + "*******"));
-            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* PROGRAM RUN TYPE SET TO " + myConfigRunTypeModel.ConfigurationValue + "*******"));
+            try
+            {
 
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* PROGRAM REPORT TYPE SET TO " + myConfigReportTypeModel.ConfigurationValue + "*******"));
-            myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* PROGRAM REPORT TYPE SET TO " + myConfigReportTypeModel.ConfigurationValue + "*******"));
+                myConfigRunTypeModel = DataProvider.Instance.GetRunTypeConfiguration();
+
+                //get the program run type configuration
+                myConfigReportTypeModel = DataProvider.Instance.GetReportTypeConfiguration();
+
+                Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* PROGRAM RUN TYPE SET TO " + myConfigRunTypeModel.ConfigurationValue + "*******"));
+                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* PROGRAM RUN TYPE SET TO " + myConfigRunTypeModel.ConfigurationValue + "*******"));
+
+                Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* PROGRAM REPORT TYPE SET TO " + myConfigReportTypeModel.ConfigurationValue + "*******"));
+                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("******* PROGRAM REPORT TYPE SET TO " + myConfigReportTypeModel.ConfigurationValue + "*******"));
+
+            }
+            catch (Exception e)
+            {
+                //log the event
+                myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(e.InnerException.ToString()));
+                Debug.WriteLine(e.InnerException);
+
+                //close the stream
+                myLog.Close();
+
+            }
 
             try
             {

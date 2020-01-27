@@ -19,5 +19,6 @@ namespace SendFaxConsole.Data
         public string Fax_File_Location { get; set; }
         public System.DateTime Date_Requested { get; set; }
         public Nullable<System.DateTime> Date_Last_Sent { get; set; }
+        public int MessageID { get; set; }
     }
 }

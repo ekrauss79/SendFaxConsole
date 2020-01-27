@@ -12,15 +12,11 @@ namespace SendFaxConsole.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class tblFaxRequestMaster_AUDIT
+    public partial class tblMessageToRecipient
     {
-        public int FaxAuditID { get; set; }
-        public int FaxRequestID { get; set; }
-        public int ClientID { get; set; }
-        public string Fax_File_Location { get; set; }
-        public System.DateTime Date_Requested { get; set; }
-        public Nullable<System.DateTime> Date_Last_Sent { get; set; }
-        public string Fax_Status { get; set; }
-        public Nullable<int> MessageID { get; set; }
+        public int MessageID { get; set; }
+        public string Message_Short_Name { get; set; }
+        public string Message_Description { get; set; }
+        public string Message_Body { get; set; }
     }
 }

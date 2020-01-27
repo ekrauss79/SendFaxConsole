@@ -110,7 +110,7 @@ namespace SendFaxConsole.HelperClasses
             return outString;
         }
         //this is the old original message...depricated on 10/23/2019
-        public static String getMonthlyEmailBody_old(string clientName)
+        public static String getMonthlyEmailBody_good(string clientName)
         {
 
             String outString = "";
@@ -142,7 +142,7 @@ namespace SendFaxConsole.HelperClasses
             return outString;
         }
 
-        public static String getMonthlyEmailBody(string clientName)
+        public static String getMonthlyEmailBody_bad(string clientName)
         {
 
             String outString = "";
@@ -163,6 +163,25 @@ namespace SendFaxConsole.HelperClasses
 
             return outString;
         }
+
+        public static String getMonthlyEmailBody_custom(string clientName, string messagebody)
+        {
+
+            String outString = "";
+
+            outString = " Dear " + clientName + "  \n \n \n " +
+                         "RE: NEW WASTE AND ABUSE PREVENTION PROGRAM  \n \n \n " +
+                         messagebody + " \n \n " +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
+                         "by fax at213-438-5776. \n \n " +
+                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
+                         "Sincerely, \n \n " +
+                         "Pharmacy & Formulary Department  \n " +
+                         "L.A. Care Health Plan";
+
+            return outString;
+        }
+
 
 
 

@@ -23,16 +23,41 @@ namespace SendFaxConsole
     {
         // Create a new Exchange service object
 
-        public static string SendExchangeMail(string clientEmailAddress, string fileLocation, string gmailUserNamne, string gmailPassword, string gmailFromAddress, string attachmentFilename, string clientName, string bodyType)
+        public static string SendExchangeMail(string clientEmailAddress, string fileLocation, string gmailUserNamne, string gmailPassword, string gmailFromAddress, string attachmentFilename, string clientName, string bodyType, string messageType, string message_body)
         {
             try
             {
 
                 string emailBody = "";
 
-                if (bodyType.ToLower() == "monthly")
+                switch (messageType.ToLower())
                 {
-                    emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody(clientName);
+                    case "monthly good":
+                        
+                            emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_good(clientName);
+                            break;
+                        
+                    case "monthly bad":
+                        
+                            emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_bad(clientName);
+                            break;
+
+                    case "custom":
+
+                        emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_custom(clientName, message_body);
+                        break;
+
+
+                    default:
+
+                        emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_good(clientName);
+                        break;
+                }
+
+                /** OLD CODE replaced by switch sttement
+                if (messageType.ToLower() == "monthly good")
+                {
+                    emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_good(clientName);
                 } else if (bodyType.ToLower() == "weekly")
                 {
                     emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody(clientName);
@@ -40,7 +65,7 @@ namespace SendFaxConsole
                 else
                 {
                     emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody(clientName);
-                }
+                } **/
 
                 // Command line argument must the the SMTP host.
                 SmtpClient client = new SmtpClient();

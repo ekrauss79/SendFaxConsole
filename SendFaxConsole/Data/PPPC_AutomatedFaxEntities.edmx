@@ -36,6 +36,7 @@
           <Property Name="Fax_File_Location" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="Date_Requested" Type="smalldatetime" Nullable="false" />
           <Property Name="Date_Last_Sent" Type="smalldatetime" />
+          <Property Name="MessageID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tblFaxRequestMaster_AUDIT">
           <Key>
@@ -48,6 +49,16 @@
           <Property Name="Date_Requested" Type="smalldatetime" Nullable="false" />
           <Property Name="Date_Last_Sent" Type="smalldatetime" />
           <Property Name="Fax_Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MessageID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblMessageToRecipient">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Message_Short_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Message_Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Message_Body" Type="nvarchar" MaxLength="2000" />
         </EntityType>
         <Function Name="lsp_DeleteFaxRequest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FaxRequestID" Type="int" Mode="In" />
@@ -57,6 +68,7 @@
           <EntitySet Name="tblFaxRecipientMaster" EntityType="Self.tblFaxRecipientMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFaxRequestMaster" EntityType="Self.tblFaxRequestMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFaxRequestMaster_AUDIT" EntityType="Self.tblFaxRequestMaster_AUDIT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMessageToRecipient" EntityType="Self.tblMessageToRecipient" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -85,6 +97,7 @@
           <Property Name="Fax_File_Location" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Date_Requested" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Date_Last_Sent" Type="DateTime" Precision="0" />
+          <Property Name="MessageID" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="tblFaxRequestMaster_AUDIT">
           <Key>
@@ -97,6 +110,7 @@
           <Property Name="Date_Requested" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Date_Last_Sent" Type="DateTime" Precision="0" />
           <Property Name="Fax_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MessageID" Type="Int32" />
         </EntityType>
         <EntityContainer Name="PPPC_AutomatedFaxEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tblFaxRecipientMasters" EntityType="Self.tblFaxRecipientMaster" />
@@ -106,6 +120,7 @@
           <Parameter Name="FaxRequestID" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="tblConfigurations" EntityType="PPPC_AutomatedFaxModel.tblConfiguration" />
+          <EntitySet Name="tblMessageToRecipients" EntityType="PPPC_AutomatedFaxModel.tblMessageToRecipient" />
         </EntityContainer>
         <EntityType Name="tblConfiguration">
           <Key>
@@ -114,6 +129,15 @@
           <Property Name="ConfigurationTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ConfigurationType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ConfigurationValue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblMessageToRecipient">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message_Short_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Message_Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Message_Body" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -139,6 +163,7 @@
           <EntitySetMapping Name="tblFaxRequestMasters">
             <EntityTypeMapping TypeName="PPPC_AutomatedFaxModel.tblFaxRequestMaster">
               <MappingFragment StoreEntitySet="tblFaxRequestMaster">
+                <ScalarProperty Name="MessageID" ColumnName="MessageID" />
                 <ScalarProperty Name="FaxRequestID" ColumnName="FaxRequestID" />
                 <ScalarProperty Name="ClientID" ColumnName="ClientID" />
                 <ScalarProperty Name="Fax_File_Location" ColumnName="Fax_File_Location" />
@@ -150,6 +175,7 @@
           <EntitySetMapping Name="tblFaxRequestMaster_AUDIT">
             <EntityTypeMapping TypeName="PPPC_AutomatedFaxModel.tblFaxRequestMaster_AUDIT">
               <MappingFragment StoreEntitySet="tblFaxRequestMaster_AUDIT">
+                <ScalarProperty Name="MessageID" ColumnName="MessageID" />
                 <ScalarProperty Name="FaxAuditID" ColumnName="FaxAuditID" />
                 <ScalarProperty Name="FaxRequestID" ColumnName="FaxRequestID" />
                 <ScalarProperty Name="ClientID" ColumnName="ClientID" />
@@ -167,6 +193,16 @@
                 <ScalarProperty Name="ConfigurationValue" ColumnName="ConfigurationValue" />
                 <ScalarProperty Name="ConfigurationType" ColumnName="ConfigurationType" />
                 <ScalarProperty Name="ConfigurationTypeID" ColumnName="ConfigurationTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMessageToRecipients">
+            <EntityTypeMapping TypeName="PPPC_AutomatedFaxModel.tblMessageToRecipient">
+              <MappingFragment StoreEntitySet="tblMessageToRecipient">
+                <ScalarProperty Name="Message_Body" ColumnName="Message_Body" />
+                <ScalarProperty Name="Message_Description" ColumnName="Message_Description" />
+                <ScalarProperty Name="Message_Short_Name" ColumnName="Message_Short_Name" />
+                <ScalarProperty Name="MessageID" ColumnName="MessageID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

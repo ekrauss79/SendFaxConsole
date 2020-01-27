@@ -19,6 +19,9 @@ namespace SendFaxConsole.Data.Models
         public string Fax_Status { get; set; }
         public System.DateTime Date_Requested { get; set; }
         public string Client_Email { get; set; }
+        public string Message_Short_Name { get; set;  }
+        public int MessageID { get; set; }
+        public string Message_Body { get; set; }
 
         #endregion
 

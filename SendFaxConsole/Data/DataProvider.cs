@@ -99,6 +99,7 @@ namespace SendFaxConsole.Data
             myFaxRequestMaster_AUDIT.Date_Requested = model.Date_Requested;
             myFaxRequestMaster_AUDIT.Date_Last_Sent = DateTime.Now;
             myFaxRequestMaster_AUDIT.Fax_Status = model.Fax_Status;
+            myFaxRequestMaster_AUDIT.MessageID = model.MessageID;
 
             try
             {
@@ -262,6 +263,8 @@ namespace SendFaxConsole.Data
                 return (from faxRequester in DataContext.tblFaxRequestMasters
                         join faxRecipients in DataContext.tblFaxRecipientMasters
                            on faxRequester.ClientID equals faxRecipients.ClientID
+                        join messages in DataContext.tblMessageToRecipients
+                            on faxRequester.MessageID equals messages.MessageID
                         where (faxRequester.FaxRequestID == MaxFaxRequestID)
                         select new FaxRequestQueryModel
                         {
@@ -271,7 +274,10 @@ namespace SendFaxConsole.Data
                             Client_Fax_Number = faxRecipients.Client_Fax_Number,
                             Fax_File_Location = faxRequester.Fax_File_Location,
                             Date_Requested = faxRequester.Date_Requested,
-                            Client_Email = faxRecipients.Client_Email
+                            Client_Email = faxRecipients.Client_Email,
+                            MessageID = faxRequester.MessageID,
+                            Message_Short_Name = messages.Message_Short_Name,
+                            Message_Body = messages.Message_Body
                         }).FirstOrDefault();
 
             }

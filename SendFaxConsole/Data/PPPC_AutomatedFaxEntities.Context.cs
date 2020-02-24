@@ -28,10 +28,10 @@ namespace SendFaxConsole.Data
         }
     
         public virtual DbSet<tblFaxRecipientMaster> tblFaxRecipientMasters { get; set; }
-        public virtual DbSet<tblFaxRequestMaster> tblFaxRequestMasters { get; set; }
         public virtual DbSet<tblFaxRequestMaster_AUDIT> tblFaxRequestMaster_AUDIT { get; set; }
         public virtual DbSet<tblConfiguration> tblConfigurations { get; set; }
         public virtual DbSet<tblMessageToRecipient> tblMessageToRecipients { get; set; }
+        public virtual DbSet<tblFaxRequestMaster> tblFaxRequestMasters { get; set; }
     
         public virtual int lsp_DeleteFaxRequest(Nullable<int> faxRequestID)
         {

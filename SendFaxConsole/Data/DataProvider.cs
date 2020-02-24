@@ -277,7 +277,11 @@ namespace SendFaxConsole.Data
                             Client_Email = faxRecipients.Client_Email,
                             MessageID = faxRequester.MessageID,
                             Message_Short_Name = messages.Message_Short_Name,
-                            Message_Body = messages.Message_Body
+                            Message_Section1_Subject = faxRequester.Message_Section1_Subject,
+                            Message_Section2_Body1 = faxRequester.Message_Section2_Body1,
+                            Message_Section3_Body2 = faxRequester.Message_Section3_Body2,
+                            Message_Section4_Body3 = faxRequester.Message_Section4_Body3,
+                            Message_Section5_Body4 = faxRequester.Message_Section5_Body4
                         }).FirstOrDefault();
 
             }

@@ -183,6 +183,43 @@ namespace SendFaxConsole.HelperClasses
         }
 
 
+        public static String getMonthlyEmailBody_custom_4_section(string clientName, string section1, string section2, string section3, string section4)
+        {
+
+            String outString = "";
+
+            outString = " Dear " + clientName + "  \n \n \n " +
+                         section1 + "\n \n \n " +
+                         section2 + " \n \n " +
+                         section3 + " \n \n " +
+                         section4 + " \n \n " +
+                         "Sincerely, \n \n " +
+                         "Pharmacy & Formulary Department  \n " +
+                         "L.A. Care Health Plan";
+
+            return outString;
+        }
+
+        public static String getMonthlyEmailBody_custom_5_section(string clientName, string section1, string section2, string section3, string section4, string section5)
+        {
+
+            String outString = "";
+
+            outString = " Dear " + clientName + "  \n \n \n " +
+                         section1 + "\n \n \n " +
+                         section2 + " \n \n " +
+                         section3 + " \n \n " +
+                         section4 + " \n \n " +
+                         section5 + " \n \n " +
+                         "Sincerely, \n \n " +
+                         "Pharmacy & Formulary Department  \n " +
+                         "L.A. Care Health Plan";
+
+            return outString;
+        }
+
+
+
 
 
         public static string GenerateRandomString(int length, String allowedChars)

@@ -17,6 +17,7 @@ namespace SendFaxConsole.Data.Models
         public System.DateTime Date_Requested { get; set; }
         public Nullable<System.DateTime> Date_Last_Sent { get; set; }
         public int MessageID { get; set;  }
+        public string Message_Body { get; set; }
 
 
         #endregion

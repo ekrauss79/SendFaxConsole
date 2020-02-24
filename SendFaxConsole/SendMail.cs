@@ -16,14 +16,14 @@ using Microsoft.Exchange.WebServices.Data;
 using Microsoft.Exchange.WebServices.Autodiscover;
 using System.Net.Mail;
 using System.Net.Mime;
+using SendFaxConsole.Data.Models;
 
 namespace SendFaxConsole
 {
     public class SendMail
     {
         // Create a new Exchange service object
-
-        public static string SendExchangeMail(string clientEmailAddress, string fileLocation, string gmailUserNamne, string gmailPassword, string gmailFromAddress, string attachmentFilename, string clientName, string bodyType, string messageType, string message_body)
+        public static string SendExchangeMail(FaxRequestQueryModel myFaxRequestQueryModel, string gmailUserNamne, string gmailPassword, string gmailFromAddress, string attachmentFilename)
         {
             try
             {
@@ -34,23 +34,32 @@ namespace SendFaxConsole
                 {
                     case "monthly good":
                         
-                            emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_good(clientName);
+                            emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_good(myFaxRequestQueryModel.Client_Name);
                             break;
                         
                     case "monthly bad":
                         
-                            emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_bad(clientName);
+                            emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_bad(myFaxRequestQueryModel.Client_Name);
                             break;
 
-                    case "custom":
+                    case "custom 2 sections":
 
-                        emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_custom(clientName, message_body);
+                        emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_custom_2_section(myFaxRequestQueryModel);
                         break;
 
+                    case "custom 4 sections":
+
+                        emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_custom_4_section(myFaxRequestQueryModel);
+                        break;
+
+                    case "custom 5 sections":
+
+                        emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_custom_5_section(myFaxRequestQueryModel);
+                        break;
 
                     default:
 
-                        emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_good(clientName);
+                        emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_good(myFaxRequestQueryModel.Client_Name);
                         break;
                 }
 

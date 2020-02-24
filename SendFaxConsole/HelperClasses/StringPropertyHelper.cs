@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Globalization;
+using SendFaxConsole.Data.Models;
 
 namespace SendFaxConsole.HelperClasses
 {
@@ -164,14 +165,14 @@ namespace SendFaxConsole.HelperClasses
             return outString;
         }
 
-        public static String getMonthlyEmailBody_custom(string clientName, string messagebody)
+        public static String getMonthlyEmailBody_custom_2_section(FaxRequestQueryModel myFaxRequestQueryModel)
         {
 
             String outString = "";
 
-            outString = " Dear " + clientName + "  \n \n \n " +
-                         "RE: NEW WASTE AND ABUSE PREVENTION PROGRAM  \n \n \n " +
-                         messagebody + " \n \n " +
+            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  \n \n \n " +
+                         myFaxRequestQueryModel.Message_Section1_Subject + "\n \n \n " +
+                         myFaxRequestQueryModel.Message_Section2_Body1 + " \n \n " +
                          "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
                          "by fax at213-438-5776. \n \n " +
                          "Thank you for your time.  We look forward to communicating with you. \n \n " +
@@ -183,16 +184,16 @@ namespace SendFaxConsole.HelperClasses
         }
 
 
-        public static String getMonthlyEmailBody_custom_4_section(string clientName, string section1, string section2, string section3, string section4)
+        public static String getMonthlyEmailBody_custom_4_section(FaxRequestQueryModel myFaxRequestQueryModel)
         {
 
             String outString = "";
 
-            outString = " Dear " + clientName + "  \n \n \n " +
-                         section1 + "\n \n \n " +
-                         section2 + " \n \n " +
-                         section3 + " \n \n " +
-                         section4 + " \n \n " +
+            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  \n \n \n " +
+                         myFaxRequestQueryModel.Message_Section1_Subject + "\n \n \n " +
+                         myFaxRequestQueryModel.Message_Section2_Body1 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section3_Body2 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section4_Body3 + " \n \n " +
                          "Sincerely, \n \n " +
                          "Pharmacy & Formulary Department  \n " +
                          "L.A. Care Health Plan";
@@ -200,27 +201,23 @@ namespace SendFaxConsole.HelperClasses
             return outString;
         }
 
-        public static String getMonthlyEmailBody_custom_5_section(string clientName, string section1, string section2, string section3, string section4, string section5)
+        public static String getMonthlyEmailBody_custom_5_section(FaxRequestQueryModel myFaxRequestQueryModel)
         {
 
             String outString = "";
 
-            outString = " Dear " + clientName + "  \n \n \n " +
-                         section1 + "\n \n \n " +
-                         section2 + " \n \n " +
-                         section3 + " \n \n " +
-                         section4 + " \n \n " +
-                         section5 + " \n \n " +
+            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  \n \n \n " +
+                         myFaxRequestQueryModel.Message_Section1_Subject + "\n \n \n " +
+                         myFaxRequestQueryModel.Message_Section2_Body1 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section3_Body2 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section4_Body3 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section5_Body4 + " \n \n " +
                          "Sincerely, \n \n " +
                          "Pharmacy & Formulary Department  \n " +
                          "L.A. Care Health Plan";
 
             return outString;
         }
-
-
-
-
 
         public static string GenerateRandomString(int length, String allowedChars)
         {

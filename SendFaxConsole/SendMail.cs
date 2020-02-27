@@ -30,19 +30,24 @@ namespace SendFaxConsole
 
                 string emailBody = "";
 
-                switch (messageType.ToLower())
+                switch (myFaxRequestQueryModel.Message_Short_Name.ToLower())
                 {
                     case "monthly good":
                         
-                            emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_good(myFaxRequestQueryModel.Client_Name);
-                            break;
+                        emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_good(myFaxRequestQueryModel.Client_Name);
+                        break;
                         
                     case "monthly bad":
                         
-                            emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_bad(myFaxRequestQueryModel.Client_Name);
-                            break;
+                        emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_bad(myFaxRequestQueryModel.Client_Name);
+                        break;
 
                     case "custom 2 sections":
+
+                        emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_custom_2_section(myFaxRequestQueryModel);
+                        break;
+
+                    case "custom 3 sections":
 
                         emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_custom_2_section(myFaxRequestQueryModel);
                         break;
@@ -91,7 +96,7 @@ namespace SendFaxConsole
                 message.From = fromAddress;
                 message.Subject = "LA Care Waste & Abuse Peer-to-Peer Report";
                 message.Body = emailBody;
-                message.To.Add(clientEmailAddress);
+                message.To.Add(myFaxRequestQueryModel.Client_Email);
                 message.BodyEncoding = UTF8Encoding.UTF8;
                 message.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
 

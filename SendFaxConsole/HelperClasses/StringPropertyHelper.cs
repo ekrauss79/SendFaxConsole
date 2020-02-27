@@ -183,6 +183,21 @@ namespace SendFaxConsole.HelperClasses
             return outString;
         }
 
+        public static String getMonthlyEmailBody_custom_3_section(FaxRequestQueryModel myFaxRequestQueryModel)
+        {
+
+            String outString = "";
+
+            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  \n \n \n " +
+                         myFaxRequestQueryModel.Message_Section1_Subject + "\n \n \n " +
+                         myFaxRequestQueryModel.Message_Section2_Body1 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section3_Body2 + " \n \n " +
+                         "Sincerely, \n \n " +
+                         "Pharmacy & Formulary Department  \n " +
+                         "L.A. Care Health Plan";
+
+            return outString;
+        }
 
         public static String getMonthlyEmailBody_custom_4_section(FaxRequestQueryModel myFaxRequestQueryModel)
         {

@@ -225,7 +225,6 @@ namespace SendFaxConsole
                                     //send the email
                                     Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
                                     myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
-                                    //myEmailSuccess = SendFaxConsole.SendMail.SendExchangeMail(faxRequest.Client_Email, faxRequest.Fax_File_Location, myGmailUsername, myGmailPassword, myGmailFromAddress, faxRequest.Fax_File_Location, faxRequest.Client_Name, myConfigReportTypeModel.ConfigurationValue, faxRequest.Message_Short_Name, faxRequest.Message_Body);
                                     myEmailSuccess = SendFaxConsole.SendMail.SendExchangeMail(faxRequest, myGmailUsername, myGmailPassword, myGmailFromAddress, myConfigReportTypeModel.ConfigurationValue);
 
                                     //log the event
@@ -362,7 +361,6 @@ namespace SendFaxConsole
                                         //send the email
                                         Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
                                         myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
-                                        //myEmailSuccess = SendFaxConsole.SendMail.SendExchangeMail(faxRequest.Client_Email, faxRequest.Fax_File_Location, myGmailUsername, myGmailPassword, myGmailFromAddress, faxRequest.Fax_File_Location, faxRequest.Client_Name, myConfigReportTypeModel.ConfigurationValue, faxRequest.Message_Short_Name, faxRequest.Message_Body);
                                         myEmailSuccess = SendFaxConsole.SendMail.SendExchangeMail(faxRequest, myGmailUsername, myGmailPassword, myGmailFromAddress, myConfigReportTypeModel.ConfigurationValue);
 
                                     }

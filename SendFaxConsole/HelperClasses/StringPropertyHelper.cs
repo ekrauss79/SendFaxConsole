@@ -192,6 +192,9 @@ namespace SendFaxConsole.HelperClasses
                          myFaxRequestQueryModel.Message_Section1_Subject + "\n \n \n " +
                          myFaxRequestQueryModel.Message_Section2_Body1 + " \n \n " +
                          myFaxRequestQueryModel.Message_Section3_Body2 + " \n \n " +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
+                         "by fax at213-438-5776. \n \n " +
+                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
                          "Sincerely, \n \n " +
                          "Pharmacy & Formulary Department  \n " +
                          "L.A. Care Health Plan";
@@ -209,6 +212,9 @@ namespace SendFaxConsole.HelperClasses
                          myFaxRequestQueryModel.Message_Section2_Body1 + " \n \n " +
                          myFaxRequestQueryModel.Message_Section3_Body2 + " \n \n " +
                          myFaxRequestQueryModel.Message_Section4_Body3 + " \n \n " +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
+                         "by fax at213-438-5776. \n \n " +
+                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
                          "Sincerely, \n \n " +
                          "Pharmacy & Formulary Department  \n " +
                          "L.A. Care Health Plan";
@@ -227,6 +233,9 @@ namespace SendFaxConsole.HelperClasses
                          myFaxRequestQueryModel.Message_Section3_Body2 + " \n \n " +
                          myFaxRequestQueryModel.Message_Section4_Body3 + " \n \n " +
                          myFaxRequestQueryModel.Message_Section5_Body4 + " \n \n " +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
+                         "by fax at213-438-5776. \n \n " +
+                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
                          "Sincerely, \n \n " +
                          "Pharmacy & Formulary Department  \n " +
                          "L.A. Care Health Plan";

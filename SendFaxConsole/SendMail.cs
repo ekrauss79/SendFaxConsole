@@ -23,7 +23,7 @@ namespace SendFaxConsole
     public class SendMail
     {
         // Create a new Exchange service object
-        public static string SendExchangeMail(FaxRequestQueryModel myFaxRequestQueryModel, string gmailUserNamne, string gmailPassword, string gmailFromAddress, string attachmentFilename)
+        public static string SendExchangeMail(FaxRequestQueryModel myFaxRequestQueryModel, string gmailUserNamne, string gmailPassword, string gmailFromAddress)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace SendFaxConsole
 
                     case "custom 3 sections":
 
-                        emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_custom_2_section(myFaxRequestQueryModel);
+                        emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_custom_3_section(myFaxRequestQueryModel);
                         break;
 
                     case "custom 4 sections":
@@ -100,15 +100,15 @@ namespace SendFaxConsole
                 message.BodyEncoding = UTF8Encoding.UTF8;
                 message.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
 
-                if (attachmentFilename != null)
+                if (myFaxRequestQueryModel.Fax_File_Location != null)
                 {
-                    System.Net.Mail.Attachment attachment = new System.Net.Mail.Attachment(attachmentFilename, System.Net.Mime.MediaTypeNames.Application.Octet);
+                    System.Net.Mail.Attachment attachment = new System.Net.Mail.Attachment(myFaxRequestQueryModel.Fax_File_Location, System.Net.Mime.MediaTypeNames.Application.Octet);
                     System.Net.Mime.ContentDisposition disposition = attachment.ContentDisposition;
-                    disposition.CreationDate = File.GetCreationTime(attachmentFilename);
-                    disposition.ModificationDate = File.GetLastWriteTime(attachmentFilename);
-                    disposition.ReadDate = File.GetLastAccessTime(attachmentFilename);
-                    disposition.FileName = Path.GetFileName(attachmentFilename);
-                    disposition.Size = new FileInfo(attachmentFilename).Length;
+                    disposition.CreationDate = File.GetCreationTime(myFaxRequestQueryModel.Fax_File_Location);
+                    disposition.ModificationDate = File.GetLastWriteTime(myFaxRequestQueryModel.Fax_File_Location);
+                    disposition.ReadDate = File.GetLastAccessTime(myFaxRequestQueryModel.Fax_File_Location);
+                    disposition.FileName = Path.GetFileName(myFaxRequestQueryModel.Fax_File_Location);
+                    disposition.Size = new FileInfo(myFaxRequestQueryModel.Fax_File_Location).Length;
                     disposition.DispositionType = DispositionTypeNames.Attachment;
                     message.Attachments.Add(attachment);
                 }

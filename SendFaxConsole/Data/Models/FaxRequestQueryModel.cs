@@ -26,6 +26,10 @@ namespace SendFaxConsole.Data.Models
         public string Message_Section3_Body2 { get; set; }
         public string Message_Section4_Body3 { get; set; }
         public string Message_Section5_Body4 { get; set; }
+        public string Message_Section6_Body5 { get; set; }
+        public string Message_Section7_Body6 { get; set; }
+        public string Message_Section8_Body7 { get; set; }
+        public string Message_Section9_Body8 { get; set; }
 
         #endregion
 

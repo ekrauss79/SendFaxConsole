@@ -225,7 +225,7 @@ namespace SendFaxConsole
                                     //send the email
                                     Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
                                     myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
-                                    myEmailSuccess = SendFaxConsole.SendMail.SendExchangeMail(faxRequest, myGmailUsername, myGmailPassword, myGmailFromAddress, myConfigReportTypeModel.ConfigurationValue);
+                                    myEmailSuccess = SendFaxConsole.SendMail.SendExchangeMail(faxRequest, myGmailUsername, myGmailPassword, myGmailFromAddress);
 
                                     //log the event
                                     Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Processing email record for address " + faxRequest.Client_Email));
@@ -361,7 +361,7 @@ namespace SendFaxConsole
                                         //send the email
                                         Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
                                         myLog.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("Attempting email record for address " + faxRequest.Client_Email));
-                                        myEmailSuccess = SendFaxConsole.SendMail.SendExchangeMail(faxRequest, myGmailUsername, myGmailPassword, myGmailFromAddress, myConfigReportTypeModel.ConfigurationValue);
+                                        myEmailSuccess = SendFaxConsole.SendMail.SendExchangeMail(faxRequest, myGmailUsername, myGmailPassword, myGmailFromAddress);
 
                                     }
                                     else

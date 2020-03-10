@@ -42,6 +42,10 @@
           <Property Name="Message_Section3_Body2" Type="nvarchar" MaxLength="2000" />
           <Property Name="Message_Section4_Body3" Type="nvarchar" MaxLength="2000" />
           <Property Name="Message_Section5_Body4" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Message_Section6_Body5" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Message_Section7_Body6" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Message_Section8_Body7" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Message_Section9_Body8" Type="nvarchar" MaxLength="2000" />
         </EntityType>
         <EntityType Name="tblFaxRequestMaster_AUDIT">
           <Key>
@@ -148,6 +152,10 @@
           <Property Name="Message_Section3_Body2" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="Message_Section4_Body3" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="Message_Section5_Body4" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Message_Section6_Body5" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Message_Section7_Body6" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Message_Section8_Body7" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Message_Section9_Body8" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -207,6 +215,10 @@
           <EntitySetMapping Name="tblFaxRequestMasters">
             <EntityTypeMapping TypeName="PPPC_AutomatedFaxModel.tblFaxRequestMaster">
               <MappingFragment StoreEntitySet="tblFaxRequestMaster">
+                <ScalarProperty Name="Message_Section9_Body8" ColumnName="Message_Section9_Body8" />
+                <ScalarProperty Name="Message_Section8_Body7" ColumnName="Message_Section8_Body7" />
+                <ScalarProperty Name="Message_Section7_Body6" ColumnName="Message_Section7_Body6" />
+                <ScalarProperty Name="Message_Section6_Body5" ColumnName="Message_Section6_Body5" />
                 <ScalarProperty Name="Message_Section5_Body4" ColumnName="Message_Section5_Body4" />
                 <ScalarProperty Name="Message_Section4_Body3" ColumnName="Message_Section4_Body3" />
                 <ScalarProperty Name="Message_Section3_Body2" ColumnName="Message_Section3_Body2" />

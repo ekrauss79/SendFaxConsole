@@ -243,6 +243,104 @@ namespace SendFaxConsole.HelperClasses
             return outString;
         }
 
+        public static String getMonthlyEmailBody_custom_6_section(FaxRequestQueryModel myFaxRequestQueryModel)
+        {
+
+            String outString = "";
+
+            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  \n \n \n " +
+                         myFaxRequestQueryModel.Message_Section1_Subject + "\n \n \n " +
+                         myFaxRequestQueryModel.Message_Section2_Body1 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section3_Body2 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section4_Body3 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section5_Body4 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section6_Body5 + " \n \n " +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
+                         "by fax at213-438-5776. \n \n " +
+                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
+                         "Sincerely, \n \n " +
+                         "Pharmacy & Formulary Department  \n " +
+                         "L.A. Care Health Plan";
+
+            return outString;
+        }
+
+
+        public static String getMonthlyEmailBody_custom_7_section(FaxRequestQueryModel myFaxRequestQueryModel)
+        {
+
+            String outString = "";
+
+            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  \n \n \n " +
+                         myFaxRequestQueryModel.Message_Section1_Subject + "\n \n \n " +
+                         myFaxRequestQueryModel.Message_Section2_Body1 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section3_Body2 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section4_Body3 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section5_Body4 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section6_Body5 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section7_Body6 + " \n \n " +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
+                         "by fax at213-438-5776. \n \n " +
+                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
+                         "Sincerely, \n \n " +
+                         "Pharmacy & Formulary Department  \n " +
+                         "L.A. Care Health Plan";
+
+            return outString;
+        }
+
+
+        public static String getMonthlyEmailBody_custom_8_section(FaxRequestQueryModel myFaxRequestQueryModel)
+        {
+
+            String outString = "";
+
+            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  \n \n \n " +
+                         myFaxRequestQueryModel.Message_Section1_Subject + "\n \n \n " +
+                         myFaxRequestQueryModel.Message_Section2_Body1 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section3_Body2 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section4_Body3 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section5_Body4 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section6_Body5 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section7_Body6 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section8_Body7 + " \n \n " +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
+                         "by fax at213-438-5776. \n \n " +
+                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
+                         "Sincerely, \n \n " +
+                         "Pharmacy & Formulary Department  \n " +
+                         "L.A. Care Health Plan";
+
+            return outString;
+        }
+
+
+        public static String getMonthlyEmailBody_custom_9_section(FaxRequestQueryModel myFaxRequestQueryModel)
+        {
+
+            String outString = "";
+
+            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  \n \n \n " +
+                         myFaxRequestQueryModel.Message_Section1_Subject + "\n \n \n " +
+                         myFaxRequestQueryModel.Message_Section2_Body1 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section3_Body2 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section4_Body3 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section5_Body4 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section6_Body5 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section7_Body6 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section8_Body7 + " \n \n " +
+                         myFaxRequestQueryModel.Message_Section9_Body8 + " \n \n " +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
+                         "by fax at213-438-5776. \n \n " +
+                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
+                         "Sincerely, \n \n " +
+                         "Pharmacy & Formulary Department  \n " +
+                         "L.A. Care Health Plan";
+
+            return outString;
+        }
+
+
         public static string GenerateRandomString(int length, String allowedChars)
         {
             if (length < 0) throw new ArgumentOutOfRangeException("length", "length cannot be less than zero.");

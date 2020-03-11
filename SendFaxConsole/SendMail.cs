@@ -62,6 +62,27 @@ namespace SendFaxConsole
                         emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_custom_5_section(myFaxRequestQueryModel);
                         break;
 
+                    case "custom 6 sections":
+
+                        emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_custom_6_section(myFaxRequestQueryModel);
+                        break;
+
+                    case "custom 7 sections":
+
+                        emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_custom_7_section(myFaxRequestQueryModel);
+                        break;
+
+                    case "custom 8 sections":
+
+                        emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_custom_8_section(myFaxRequestQueryModel);
+                        break;
+
+                    case "custom 9 sections":
+
+                        emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_custom_9_section(myFaxRequestQueryModel);
+                        break;
+
+
                     default:
 
                         emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_good(myFaxRequestQueryModel.Client_Name);

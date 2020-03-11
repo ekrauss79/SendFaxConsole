@@ -281,7 +281,11 @@ namespace SendFaxConsole.Data
                             Message_Section2_Body1 = faxRequester.Message_Section2_Body1,
                             Message_Section3_Body2 = faxRequester.Message_Section3_Body2,
                             Message_Section4_Body3 = faxRequester.Message_Section4_Body3,
-                            Message_Section5_Body4 = faxRequester.Message_Section5_Body4
+                            Message_Section5_Body4 = faxRequester.Message_Section5_Body4,
+                            Message_Section6_Body5 = faxRequester.Message_Section6_Body5,
+                            Message_Section7_Body6 = faxRequester.Message_Section7_Body6,
+                            Message_Section8_Body7 = faxRequester.Message_Section8_Body7,
+                            Message_Section9_Body8 = faxRequester.Message_Section9_Body8
                         }).FirstOrDefault();
 
             }

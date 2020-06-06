@@ -29,6 +29,12 @@ namespace SendFaxConsole
             {
 
                 string emailBody = "";
+                string emailSubject = "initialized";
+
+                if (myFaxRequestQueryModel.Message_Section1_Subject != "")
+                {
+                    emailSubject = myFaxRequestQueryModel.Message_Section1_Subject;
+                }
 
                 switch (myFaxRequestQueryModel.Message_Short_Name.ToLower())
                 {
@@ -41,6 +47,12 @@ namespace SendFaxConsole
                         
                         emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_bad(myFaxRequestQueryModel.Client_Name);
                         break;
+
+                    case "custom full":
+
+                        emailBody = HelperClasses.StringPropertyHelper.getMonthlyEmailBody_custom_full(myFaxRequestQueryModel);
+                        break;
+
 
                     case "custom 2 sections":
 
@@ -114,14 +126,23 @@ namespace SendFaxConsole
 
                 MailMessage message = new MailMessage();
                 MailAddress fromAddress = new MailAddress(gmailFromAddress);
+                message.IsBodyHtml = true;
                 message.From = fromAddress;
-                message.Subject = "LA Care Waste & Abuse Peer-to-Peer Report";
+
+                if (emailSubject != "initialized")
+                {
+                    message.Subject = emailSubject;
+                } else
+                {
+                    message.Subject = "LA Care Waste & Abuse Peer-to-Peer Report";
+                }
+                
                 message.Body = emailBody;
                 message.To.Add(myFaxRequestQueryModel.Client_Email);
                 message.BodyEncoding = UTF8Encoding.UTF8;
                 message.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
 
-                if (myFaxRequestQueryModel.Fax_File_Location != null)
+              if (myFaxRequestQueryModel.Fax_File_Location != null)
                 {
                     System.Net.Mail.Attachment attachment = new System.Net.Mail.Attachment(myFaxRequestQueryModel.Fax_File_Location, System.Net.Mime.MediaTypeNames.Application.Octet);
                     System.Net.Mime.ContentDisposition disposition = attachment.ContentDisposition;

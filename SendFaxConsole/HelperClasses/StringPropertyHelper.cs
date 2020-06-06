@@ -116,28 +116,28 @@ namespace SendFaxConsole.HelperClasses
 
             String outString = "";
 
-            outString = " Dear " + clientName + "  \n \n \n " + 
-                         "RE: NEW WASTE AND ABUSE PREVENTION PROGRAM  \n \n \n " +
-                         "L.A. Care Health Plan (L.A. Care) is initiating a waste and abuse prevention program.  The \n" +
-                         "program will commence on January 1, 2019.  Currently, Navitus Health Solutions, the PBM for \n" +
-                         "L.A. Care, screens claims at point of sale.  This new program adds a further prevention action \n" +
-                         "based on historical and current claims to identify potential waste and abuse actions. \n \n" +
-                         "This program was developed to identify provider pharmacies that are both variant and \n" +
-                         "statistically inconsistent with industry practices. The program does not identify provider \n" +
-                         "pharmacies who perform appropriate actions. \n \n" +
-                         "Pharmacies will receive monthly reports identifying variance from similar practices for \n" +
-                         "geography, pharmacy channel, patient severity, and medication category types.  These reports \n " +
-                         "will also provide recommendations for change that can be implemented to reduce the potential \n " +
-                         "or waste and abuse.  In addition, quarterly reports will compare results to local and industry \n " +
-                         "averages with recommendations for potential changes. \n \n " +
-                         "We appreciate your consideration and assistance in helping minimize any waste and abuse \n " +
-                         "concerns.  This program should be helpful in identifying and operationalizing changes that \n " +
-                         "enhance your practice and help you to confirm good prescribing and dispensing practices.  \n \n " +
-                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
-                         "by fax at213-438-5776. \n \n " +
-                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
-                         "Sincerely, \n \n " +
-                         "Pharmacy & Formulary Department  \n " +
+            outString = " Dear " + clientName + "  <p><p><p>" + 
+                         "RE: NEW WASTE AND ABUSE PREVENTION PROGRAM  <p><p><p>" +
+                         "L.A. Care Health Plan (L.A. Care) is initiating a waste and abuse prevention program.  The <p>" +
+                         "program will commence on January 1, 2019.  Currently, Navitus Health Solutions, the PBM for <p>" +
+                         "L.A. Care, screens claims at point of sale.  This new program adds a further prevention action <p>" +
+                         "based on historical and current claims to identify potential waste and abuse actions. <p><p>" +
+                         "This program was developed to identify provider pharmacies that are both variant and <p>" +
+                         "statistically inconsistent with industry practices. The program does not identify provider <p>" +
+                         "pharmacies who perform appropriate actions. <p><p>" +
+                         "Pharmacies will receive monthly reports identifying variance from similar practices for <p>" +
+                         "geography, pharmacy channel, patient severity, and medication category types.  These reports <p>" +
+                         "will also provide recommendations for change that can be implemented to reduce the potential <p>" +
+                         "or waste and abuse.  In addition, quarterly reports will compare results to local and industry <p>" +
+                         "averages with recommendations for potential changes. <p><p>" +
+                         "We appreciate your consideration and assistance in helping minimize any waste and abuse <p>" +
+                         "concerns.  This program should be helpful in identifying and operationalizing changes that <p>" +
+                         "enhance your practice and help you to confirm good prescribing and dispensing practices.  <p><p>" +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and <p>" +
+                         "by fax at213-438-5776. <p><p>" +
+                         "Thank you for your time.  We look forward to communicating with you. <p><p>" +
+                         "Sincerely, <p><p>" +
+                         "Pharmacy & Formulary Department  <p>" +
                          "L.A. Care Health Plan"; 
 
             return outString;
@@ -148,36 +148,49 @@ namespace SendFaxConsole.HelperClasses
 
             String outString = "";
 
-            outString = " Dear " + clientName + "  \n \n \n " +
-                         "RE: NEW WASTE AND ABUSE PREVENTION PROGRAM  \n \n \n " +
-                         "As a Health Plan LA Care is charged with exhaustive analyses and changes to Waste & Abuse. \n" +
-                         "The Recommendations in this report are crucial for you to adopt and become part of your \n" +
-                         "normal procedures.  Waste & Abuse take away from quality and optimal clinical results.  \n " +
-                         "Your peers have the same issues as you do, but they have been able to see improvement.  We look \n " +
-                         "forward to your improvements in the next few months. \n \n " +
-                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
-                         "by fax at213-438-5776. \n \n " +
-                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
-                         "Sincerely, \n \n " +
-                         "Pharmacy & Formulary Department  \n " +
+            outString = " Dear " + clientName + "  <p><p><p>" +
+                         "RE: NEW WASTE AND ABUSE PREVENTION PROGRAM  <p><p><p>" +
+                         "As a Health Plan LA Care is charged with exhaustive analyses and changes to Waste & Abuse. <p>" +
+                         "The Recommendations in this report are crucial for you to adopt and become part of your <p>" +
+                         "normal procedures.  Waste & Abuse take away from quality and optimal clinical results.  <p>" +
+                         "Your peers have the same issues as you do, but they have been able to see improvement.  We look <p>" +
+                         "forward to your improvements in the next few months. <p><p>" +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and <p>" +
+                         "by fax at213-438-5776. <p><p>" +
+                         "Thank you for your time.  We look forward to communicating with you. <p><p>" +
+                         "Sincerely, <p><p>" +
+                         "Pharmacy & Formulary Department  <p>" +
                          "L.A. Care Health Plan";
 
             return outString;
         }
+
+        public static String getMonthlyEmailBody_custom_full(FaxRequestQueryModel myFaxRequestQueryModel)
+        {
+
+            String outString = "";
+
+            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  <p><p><p> " +
+                         myFaxRequestQueryModel.Message_Section1_Subject + "<p><p><p> " +
+                         myFaxRequestQueryModel.Message_Section2_Body1;
+
+            return outString;
+        }
+
 
         public static String getMonthlyEmailBody_custom_2_section(FaxRequestQueryModel myFaxRequestQueryModel)
         {
 
             String outString = "";
 
-            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  \n \n \n " +
-                         myFaxRequestQueryModel.Message_Section1_Subject + "\n \n \n " +
-                         myFaxRequestQueryModel.Message_Section2_Body1 + " \n \n " +
-                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
-                         "by fax at213-438-5776. \n \n " +
-                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
-                         "Sincerely, \n \n " +
-                         "Pharmacy & Formulary Department  \n " +
+            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  <p><p><p> " +
+                         myFaxRequestQueryModel.Message_Section1_Subject + "<p><p><p> " +
+                         myFaxRequestQueryModel.Message_Section2_Body1 + " <p><p> " +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and <p> " +
+                         "by fax at213-438-5776. <p><p> " +
+                         "Thank you for your time.  We look forward to communicating with you. <p><p> " +
+                         "Sincerely, <p><p> " +
+                         "Pharmacy & Formulary Department  <p> " +
                          "L.A. Care Health Plan";
 
             return outString;
@@ -188,15 +201,15 @@ namespace SendFaxConsole.HelperClasses
 
             String outString = "";
 
-            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  \n \n \n " +
-                         myFaxRequestQueryModel.Message_Section1_Subject + "\n \n \n " +
-                         myFaxRequestQueryModel.Message_Section2_Body1 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section3_Body2 + " \n \n " +
-                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
-                         "by fax at213-438-5776. \n \n " +
-                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
-                         "Sincerely, \n \n " +
-                         "Pharmacy & Formulary Department  \n " +
+            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  <p><p><p>" +
+                         myFaxRequestQueryModel.Message_Section1_Subject + "<p><p><p>" +
+                         myFaxRequestQueryModel.Message_Section2_Body1 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section3_Body2 + " <p><p>" +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and <p>" +
+                         "by fax at213-438-5776. <p><p>" +
+                         "Thank you for your time.  We look forward to communicating with you. <p><p>" +
+                         "Sincerely, <p><p>" +
+                         "Pharmacy & Formulary Department  <p>" +
                          "L.A. Care Health Plan";
 
             return outString;
@@ -207,16 +220,16 @@ namespace SendFaxConsole.HelperClasses
 
             String outString = "";
 
-            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  \n \n \n " +
-                         myFaxRequestQueryModel.Message_Section1_Subject + "\n \n \n " +
-                         myFaxRequestQueryModel.Message_Section2_Body1 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section3_Body2 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section4_Body3 + " \n \n " +
-                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
-                         "by fax at213-438-5776. \n \n " +
-                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
-                         "Sincerely, \n \n " +
-                         "Pharmacy & Formulary Department  \n " +
+            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  <p><p><p>" +
+                         myFaxRequestQueryModel.Message_Section1_Subject + "<p><p><p>" +
+                         myFaxRequestQueryModel.Message_Section2_Body1 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section3_Body2 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section4_Body3 + " <p><p>" +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and <p>" +
+                         "by fax at213-438-5776. <p><p>" +
+                         "Thank you for your time.  We look forward to communicating with you. <p><p>" +
+                         "Sincerely, <p><p>" +
+                         "Pharmacy & Formulary Department  <p>" +
                          "L.A. Care Health Plan";
 
             return outString;
@@ -227,17 +240,17 @@ namespace SendFaxConsole.HelperClasses
 
             String outString = "";
 
-            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  \n \n \n " +
-                         myFaxRequestQueryModel.Message_Section1_Subject + "\n \n \n " +
-                         myFaxRequestQueryModel.Message_Section2_Body1 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section3_Body2 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section4_Body3 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section5_Body4 + " \n \n " +
-                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
-                         "by fax at213-438-5776. \n \n " +
-                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
-                         "Sincerely, \n \n " +
-                         "Pharmacy & Formulary Department  \n " +
+            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  <p><p><p>" +
+                         myFaxRequestQueryModel.Message_Section1_Subject + "<p><p><p>" +
+                         myFaxRequestQueryModel.Message_Section2_Body1 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section3_Body2 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section4_Body3 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section5_Body4 + " <p><p>" +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and <p>" +
+                         "by fax at213-438-5776. <p><p>" +
+                         "Thank you for your time.  We look forward to communicating with you. <p><p>" +
+                         "Sincerely, <p><p>" +
+                         "Pharmacy & Formulary Department  <p>" +
                          "L.A. Care Health Plan";
 
             return outString;
@@ -248,18 +261,18 @@ namespace SendFaxConsole.HelperClasses
 
             String outString = "";
 
-            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  \n \n \n " +
-                         myFaxRequestQueryModel.Message_Section1_Subject + "\n \n \n " +
-                         myFaxRequestQueryModel.Message_Section2_Body1 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section3_Body2 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section4_Body3 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section5_Body4 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section6_Body5 + " \n \n " +
-                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
-                         "by fax at213-438-5776. \n \n " +
-                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
-                         "Sincerely, \n \n " +
-                         "Pharmacy & Formulary Department  \n " +
+            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  <p><p><p>" +
+                         myFaxRequestQueryModel.Message_Section1_Subject + "<p><p><p>" +
+                         myFaxRequestQueryModel.Message_Section2_Body1 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section3_Body2 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section4_Body3 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section5_Body4 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section6_Body5 + " <p><p>" +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and <p>" +
+                         "by fax at213-438-5776. <p><p>" +
+                         "Thank you for your time.  We look forward to communicating with you. <p><p>" +
+                         "Sincerely, <p><p>" +
+                         "Pharmacy & Formulary Department  <p>" +
                          "L.A. Care Health Plan";
 
             return outString;
@@ -271,19 +284,19 @@ namespace SendFaxConsole.HelperClasses
 
             String outString = "";
 
-            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  \n \n \n " +
-                         myFaxRequestQueryModel.Message_Section1_Subject + "\n \n \n " +
-                         myFaxRequestQueryModel.Message_Section2_Body1 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section3_Body2 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section4_Body3 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section5_Body4 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section6_Body5 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section7_Body6 + " \n \n " +
-                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
-                         "by fax at213-438-5776. \n \n " +
-                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
-                         "Sincerely, \n \n " +
-                         "Pharmacy & Formulary Department  \n " +
+            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  <p><p><p>" +
+                         myFaxRequestQueryModel.Message_Section1_Subject + "<p><p><p>" +
+                         myFaxRequestQueryModel.Message_Section2_Body1 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section3_Body2 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section4_Body3 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section5_Body4 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section6_Body5 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section7_Body6 + " <p><p>" +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and <p>" +
+                         "by fax at213-438-5776. <p><p>" +
+                         "Thank you for your time.  We look forward to communicating with you. <p><p>" +
+                         "Sincerely, <p><p>" +
+                         "Pharmacy & Formulary Department  <p>" +
                          "L.A. Care Health Plan";
 
             return outString;
@@ -295,20 +308,20 @@ namespace SendFaxConsole.HelperClasses
 
             String outString = "";
 
-            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  \n \n \n " +
-                         myFaxRequestQueryModel.Message_Section1_Subject + "\n \n \n " +
-                         myFaxRequestQueryModel.Message_Section2_Body1 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section3_Body2 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section4_Body3 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section5_Body4 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section6_Body5 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section7_Body6 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section8_Body7 + " \n \n " +
-                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
-                         "by fax at213-438-5776. \n \n " +
-                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
-                         "Sincerely, \n \n " +
-                         "Pharmacy & Formulary Department  \n " +
+            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  <p><p><p>" +
+                         myFaxRequestQueryModel.Message_Section1_Subject + "<p><p><p>" +
+                         myFaxRequestQueryModel.Message_Section2_Body1 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section3_Body2 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section4_Body3 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section5_Body4 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section6_Body5 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section7_Body6 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section8_Body7 + " <p><p>" +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and <p>" +
+                         "by fax at213-438-5776. <p><p>" +
+                         "Thank you for your time.  We look forward to communicating with you. <p><p>" +
+                         "Sincerely, <p><p>" +
+                         "Pharmacy & Formulary Department  <p>" +
                          "L.A. Care Health Plan";
 
             return outString;
@@ -320,21 +333,21 @@ namespace SendFaxConsole.HelperClasses
 
             String outString = "";
 
-            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  \n \n \n " +
-                         myFaxRequestQueryModel.Message_Section1_Subject + "\n \n \n " +
-                         myFaxRequestQueryModel.Message_Section2_Body1 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section3_Body2 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section4_Body3 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section5_Body4 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section6_Body5 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section7_Body6 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section8_Body7 + " \n \n " +
-                         myFaxRequestQueryModel.Message_Section9_Body8 + " \n \n " +
-                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and \n " +
-                         "by fax at213-438-5776. \n \n " +
-                         "Thank you for your time.  We look forward to communicating with you. \n \n " +
-                         "Sincerely, \n \n " +
-                         "Pharmacy & Formulary Department  \n " +
+            outString = " Dear " + myFaxRequestQueryModel.Client_Name + "  <p><p><p>" +
+                         myFaxRequestQueryModel.Message_Section1_Subject + "<p><p><p>" +
+                         myFaxRequestQueryModel.Message_Section2_Body1 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section3_Body2 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section4_Body3 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section5_Body4 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section6_Body5 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section7_Body6 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section8_Body7 + " <p><p>" +
+                         myFaxRequestQueryModel.Message_Section9_Body8 + " <p><p>" +
+                         "If you have any questions about this program, you can reach us by phone at 213-973-0065 and <p>" +
+                         "by fax at213-438-5776. <p><p>" +
+                         "Thank you for your time.  We look forward to communicating with you. <p><p>" +
+                         "Sincerely, <p><p>" +
+                         "Pharmacy & Formulary Department  <p>" +
                          "L.A. Care Health Plan";
 
             return outString;

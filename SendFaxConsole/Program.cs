@@ -86,7 +86,7 @@ namespace SendFaxConsole
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*                                            *"));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*   Refer to C:\\Temp\\" + myLogName));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*           log information                  *"));
-            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*               v2.2.0                       *"));
+            Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("*               v2.4.3                       *"));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage("**********************************************"));
             Console.WriteLine(ConsoleOutputHelper.OutputConsoleMessage(""));
 

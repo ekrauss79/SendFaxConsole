@@ -38,7 +38,7 @@
           <Property Name="Date_Last_Sent" Type="smalldatetime" />
           <Property Name="MessageID" Type="int" Nullable="false" />
           <Property Name="Message_Section1_Subject" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="Message_Section2_Body1" Type="nvarchar" MaxLength="2000" Nullable="false" />
+          <Property Name="Message_Section2_Body1" Type="nvarchar" MaxLength="4000" Nullable="false" />
           <Property Name="Message_Section3_Body2" Type="nvarchar" MaxLength="2000" />
           <Property Name="Message_Section4_Body3" Type="nvarchar" MaxLength="2000" />
           <Property Name="Message_Section5_Body4" Type="nvarchar" MaxLength="2000" />
@@ -148,7 +148,7 @@
           <Property Name="Date_Last_Sent" Type="DateTime" Precision="0" />
           <Property Name="MessageID" Type="Int32" Nullable="false" />
           <Property Name="Message_Section1_Subject" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Message_Section2_Body1" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Message_Section2_Body1" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="Message_Section3_Body2" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="Message_Section4_Body3" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="Message_Section5_Body4" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
